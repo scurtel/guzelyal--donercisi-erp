@@ -282,6 +282,8 @@ class DatabaseService {
     return results;
   }
 
+  private transactionDepth = 0;
+
   // Run an execute statement (INSERT, UPDATE, DELETE)
   run(sql: string, params: any[] = []): { changes: number; lastInsertRowid: number } {
     const db = this.ensureDb();
@@ -289,21 +291,46 @@ class DatabaseService {
     const res = db.exec('SELECT changes() as chg, last_insert_rowid() as lid');
     const changes = res[0]?.values[0]?.[0] as number ?? 0;
     const lastInsertRowid = res[0]?.values[0]?.[1] as number ?? 0;
-    this.persist();
+    if (this.transactionDepth === 0) {
+      this.persist();
+    }
     return { changes, lastInsertRowid };
   }
 
-  // Database transaction runner
+  // Database transaction runner (supports nested calls safely)
   transaction<T>(callback: () => T): T {
     const db = this.ensureDb();
-    db.run('BEGIN TRANSACTION');
+    if (this.transactionDepth > 0) {
+      // Already within an active transaction; execute callback directly without nested BEGIN
+      return callback();
+    }
+
+    this.transactionDepth++;
     try {
+      try {
+        db.run('BEGIN TRANSACTION');
+      } catch (beginErr: any) {
+        // If an unfinished transaction was left open, rollback and retry
+        if (String(beginErr?.message || '').includes('within a transaction')) {
+          try { db.run('ROLLBACK'); } catch {}
+          db.run('BEGIN TRANSACTION');
+        } else {
+          throw beginErr;
+        }
+      }
+
       const result = callback();
       db.run('COMMIT');
+      this.transactionDepth = 0;
       this.persist();
       return result;
     } catch (error) {
-      db.run('ROLLBACK');
+      this.transactionDepth = 0;
+      try {
+        db.run('ROLLBACK');
+      } catch (rollbackErr) {
+        console.warn('Rollback failed or not in transaction:', rollbackErr);
+      }
       console.error('Transaction rolled back due to error:', error);
       throw error;
     }

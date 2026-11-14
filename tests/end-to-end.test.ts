@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import initSqlJs from 'sql.js';
+import { dbService } from '../src/db/database';
 import { CREATE_TABLES_SQL } from '../src/db/schema';
 import { SEED_DATA_SQL } from '../src/db/seeds';
 import { roundMoney } from '../src/utils/format';
@@ -371,5 +372,55 @@ describe('Güzelyalı ERP — Uçtan Uca Kesin Kabul ve Muhasebe Testleri', () =
 
     const checkNew = db.exec('SELECT count(*) FROM users WHERE id = ? AND pin_code = "889900"', [dorukId])[0].values[0][0];
     expect(checkNew).toBe(1);
+  });
+
+  it('14. dbService.createOrder ile Nakit Kasa sipariş oluşturma (nested transaction kontrolü)', async () => {
+    await dbService.init();
+
+    // Reçetesi olan ürünlerle Nakit Satış (Tavuk Sütlü Ekmek 2x, Et Sütlü Ekmek 1x)
+    const initialCash = dbService.getCashRegisters().find(r => r.id === 1)?.balance ?? 0;
+
+    const order = dbService.createOrder({
+      channel: 'phone',
+      table_or_customer: 'Serdar Gül (0530 784 04 93)',
+      payment_method: 'cash',
+      discount_amount: 0,
+      notes: 'Test sipariş',
+      cashier_id: 1,
+      cashier_name: 'Yigit Cilli',
+      items: [
+        {
+          product_id: 3, // Tavuk Sütlü Ekmek
+          product_name: 'Tavuk Sütlü Ekmek',
+          bread_type: 'Sütlü Ekmek',
+          unit_price: 180.0,
+          quantity: 2,
+        },
+        {
+          product_id: 7, // Et Sütlü Ekmek
+          product_name: 'Et Sütlü Ekmek',
+          bread_type: 'Sütlü Ekmek',
+          unit_price: 320.0,
+          quantity: 1,
+        },
+      ],
+    });
+
+    expect(order).toBeDefined();
+    expect(order.id).toBeGreaterThan(0);
+    expect(order.total_amount).toBe(680.0);
+    expect(order.payment_method).toBe('cash');
+
+    // Nakit Kasa bakiyesinin 680 TL arttığını doğrula
+    const updatedCash = dbService.getCashRegisters().find(r => r.id === 1)?.balance ?? 0;
+    expect(updatedCash).toBe(roundMoney(initialCash + 680.0));
+
+    // Müşteriye siparişi bağlama fonksiyonunu test et
+    const customers = dbService.getCustomers('Serdar Gül');
+    if (customers.length > 0) {
+      dbService.recordCustomerOrder(customers[0].id, order.total_amount, '2x Tavuk Sütlü Ekmek, 1x Et Sütlü Ekmek');
+      const updatedCustomer = dbService.getCustomer(customers[0].id);
+      expect(updatedCustomer?.total_orders_count).toBeGreaterThan(0);
+    }
   });
 });
