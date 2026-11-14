@@ -5,6 +5,7 @@ import { ThermalReceiptModal } from './components/ThermalReceiptModal';
 import { PinLoginModal } from './components/PinLoginModal';
 import { LoginScreen } from './components/LoginScreen';
 import { DownloadModal } from './components/DownloadModal';
+import { ChangePasswordModal } from './components/ChangePasswordModal';
 
 // Modules
 import { DashboardModule } from './modules/DashboardModule';
@@ -33,15 +34,18 @@ export const App: React.FC = () => {
   });
   const [currentUser, setCurrentUser] = useState<User>(() => {
     const saved = sessionStorage.getItem('gzy_user');
-    return saved
-      ? JSON.parse(saved)
-      : {
-          id: 1,
-          username: 'admin',
-          display_name: 'Yönetici (Admin)',
-          role: 'admin',
-          pin_code: '1234',
-        };
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {}
+    }
+    return {
+      id: 1,
+      username: 'yigitcilli',
+      display_name: 'Yigit Cilli',
+      role: 'admin',
+      pin_code: '123456',
+    };
   });
 
   // App Navigation & Modals
@@ -49,6 +53,7 @@ export const App: React.FC = () => {
   const [selectedCustomerForPos, setSelectedCustomerForPos] = useState<Customer | null>(null);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isPinModalOpen, setIsPinModalOpen] = useState(false);
+  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [printOrder, setPrintOrder] = useState<Order | null>(null);
 
   const [darkMode, setDarkMode] = useState<boolean>(() => {
@@ -177,6 +182,7 @@ export const App: React.FC = () => {
           onQuickPos={() => setCurrentTab('pos')}
           onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
           onGoToYemeksepeti={() => setCurrentTab('yemeksepeti')}
+          onOpenChangePassword={() => setIsChangePasswordModalOpen(true)}
           onLogout={handleLogout}
           cashBalance={metrics.cashBalance}
           todayRevenue={metrics.todayRevenue}
@@ -289,6 +295,17 @@ export const App: React.FC = () => {
       <DownloadModal
         isOpen={isDownloadModalOpen}
         onClose={() => setIsDownloadModalOpen(false)}
+      />
+
+      {/* 6. CHANGE PASSWORD MODAL */}
+      <ChangePasswordModal
+        isOpen={isChangePasswordModalOpen}
+        onClose={() => setIsChangePasswordModalOpen(false)}
+        currentUser={currentUser}
+        onPasswordChanged={(updatedUser) => {
+          setCurrentUser(updatedUser);
+          sessionStorage.setItem('gzy_user', JSON.stringify(updatedUser));
+        }}
       />
     </div>
   );

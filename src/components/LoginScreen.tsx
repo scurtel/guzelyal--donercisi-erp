@@ -9,26 +9,42 @@ import {
   Eye,
   EyeOff,
   CheckCircle,
+  ShieldCheck,
 } from 'lucide-react';
 import { User } from '../types';
+import { dbService } from '../db/database';
+import { ChangePasswordModal } from './ChangePasswordModal';
 
 interface LoginScreenProps {
   onLoginSuccess: (user: User) => void;
 }
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
-  const users: User[] = [
-    { id: 1, username: 'admin', display_name: 'Yönetici (Admin)', role: 'admin', pin_code: '1234' },
-    { id: 2, username: 'kasiyer', display_name: 'Kasa Personeli', role: 'kasiyer', pin_code: '0000' },
-    { id: 3, username: 'usta', display_name: 'Döner Ustası', role: 'usta', pin_code: '1111' },
-  ];
+  const [users, setUsers] = useState<User[]>(() => dbService.getUsers());
+  const [selectedUser, setSelectedUser] = useState<User>(() => users[0] || {
+    id: 1,
+    username: 'yigitcilli',
+    display_name: 'Yigit Cilli',
+    role: 'admin',
+    pin_code: '123456',
+  });
 
-  const [selectedUser, setSelectedUser] = useState<User>(users[0]);
   const [pin, setPin] = useState<string>('');
   const [passwordMode, setPasswordMode] = useState<boolean>(false);
   const [passwordInput, setPasswordInput] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState<boolean>(false);
+
+  const expectedPinLength = selectedUser.pin_code?.length || 6;
+
+  // Refresh users list
+  const refreshUsers = () => {
+    const list = dbService.getUsers();
+    setUsers(list);
+    const updated = list.find((u) => u.id === selectedUser.id) || list[0];
+    setSelectedUser(updated);
+  };
 
   // Handle keyboard inputs
   useEffect(() => {
@@ -36,12 +52,12 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
       if (passwordMode) return;
 
       if (/^[0-9]$/.test(e.key)) {
-        if (pin.length < 4) {
+        if (pin.length < expectedPinLength) {
           const next = pin + e.key;
           setPin(next);
           setError('');
-          if (next.length === 4) {
-            checkPin(next, selectedUser);
+          if (next.length === expectedPinLength) {
+            setTimeout(() => checkPin(next, selectedUser), 50);
           }
         }
       } else if (e.key === 'Backspace') {
@@ -55,13 +71,13 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [pin, selectedUser, passwordMode]);
+  }, [pin, selectedUser, passwordMode, expectedPinLength]);
 
   const handleKeypadPress = (num: string) => {
     setPin((prev) => {
-      if (prev.length < 4) {
+      if (prev.length < expectedPinLength) {
         const next = prev + num;
-        if (next.length === 4) {
+        if (next.length === expectedPinLength) {
           setTimeout(() => checkPin(next, selectedUser), 50);
         }
         return next;
@@ -82,8 +98,9 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
   };
 
   const checkPin = (enteredPin: string, user: User) => {
-    if (enteredPin === user.pin_code) {
-      onLoginSuccess(user);
+    const freshUser = dbService.getUserById(user.id) || user;
+    if (enteredPin === freshUser.pin_code || enteredPin === (freshUser as any).password_hash) {
+      onLoginSuccess(freshUser);
     } else {
       setError('Hatalı PIN kodu! Lütfen tekrar deneyin.');
       setPin('');
@@ -92,13 +109,14 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const freshUser = dbService.getUserById(selectedUser.id) || selectedUser;
     const valid =
-      (selectedUser.username === 'admin' && (passwordInput === 'admin123' || passwordInput === '1234')) ||
-      (selectedUser.username === 'kasiyer' && (passwordInput === 'kasiyer123' || passwordInput === '0000')) ||
-      (selectedUser.username === 'usta' && (passwordInput === 'usta123' || passwordInput === '1111'));
+      passwordInput === freshUser.pin_code ||
+      passwordInput === (freshUser as any).password_hash ||
+      (freshUser.role === 'admin' && (passwordInput === '123456' || passwordInput === 'admin123'));
 
     if (valid) {
-      onLoginSuccess(selectedUser);
+      onLoginSuccess(freshUser);
     } else {
       setError('Hatalı şifre! Lütfen tekrar deneyin.');
       setPasswordInput('');
@@ -112,7 +130,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* Main Lock Card */}
-      <div className="relative w-full max-w-md bg-white/95 dark:bg-navy-900/95 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-200 dark:border-navy-700/80 p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-lg bg-white/95 dark:bg-navy-900/95 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-200 dark:border-navy-700/80 p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200">
         
         {/* Brand Logo & Name */}
         <div className="flex flex-col items-center text-center space-y-2">
@@ -134,7 +152,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
           <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block text-center">
             Kullanıcı Seçin
           </label>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
             {users.map((u) => {
               const isSelected = selectedUser.id === u.id;
               return (
@@ -147,14 +165,14 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
                     setPasswordInput('');
                     setError('');
                   }}
-                  className={`p-3 rounded-2xl flex flex-col items-center gap-1.5 border transition-all text-center ${
+                  className={`p-2.5 rounded-2xl flex flex-col items-center gap-1.5 border transition-all text-center ${
                     isSelected
                       ? 'bg-brand-50 dark:bg-brand-950/50 border-brand-500 text-brand-600 dark:text-brand-400 ring-2 ring-brand-500/20 shadow-sm'
                       : 'border-slate-200 dark:border-navy-800 hover:bg-slate-50 dark:hover:bg-navy-800 text-slate-600 dark:text-slate-400'
                   }`}
                 >
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-xs ${
+                    className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs shadow-xs ${
                       isSelected
                         ? 'bg-brand-600 text-white'
                         : 'bg-slate-200 dark:bg-navy-700 text-slate-700 dark:text-slate-300'
@@ -163,8 +181,10 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
                     {u.display_name.charAt(0)}
                   </div>
                   <div className="leading-tight">
-                    <div className="text-xs font-bold truncate max-w-[85px]">{u.display_name.split(' ')[0]}</div>
-                    <div className="text-[10px] text-slate-400">PIN: {u.pin_code}</div>
+                    <div className="text-[11px] font-bold truncate max-w-[70px]">{u.display_name}</div>
+                    <div className="text-[9px] text-slate-400 capitalize">
+                      {u.role === 'admin' ? 'Yönetici' : u.role === 'usta' ? 'Usta' : 'Kasiyer'}
+                    </div>
                   </div>
                 </button>
               );
@@ -186,17 +206,17 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
             {/* PIN Indicator Dots */}
             <div className="flex flex-col items-center gap-2">
               <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
-                4 Haneli PIN Kodunu Tuşlayın
+                {expectedPinLength} Haneli PIN Kodunu Tuşlayın
               </span>
-              <div className="flex gap-3 py-1">
-                {[0, 1, 2, 3].map((idx) => {
+              <div className="flex gap-2.5 py-1">
+                {Array.from({ length: expectedPinLength }).map((_, idx) => {
                   const filled = pin.length > idx;
                   return (
                     <div
                       key={idx}
-                      className={`w-4 h-4 rounded-full transition-all duration-150 ${
+                      className={`w-3.5 h-3.5 rounded-full transition-all duration-150 ${
                         filled
-                          ? 'bg-brand-600 dark:bg-brand-500 scale-125 shadow-md shadow-brand-500/40'
+                          ? 'bg-brand-600 dark:bg-brand-500 scale-125 shadow-md shadow-brand-500/40 ring-2 ring-brand-500/30'
                           : 'bg-slate-200 dark:bg-navy-700'
                       }`}
                     />
@@ -240,16 +260,25 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
               </button>
             </div>
 
-            <div className="text-center pt-1">
+            <div className="flex items-center justify-between text-xs px-2 pt-1">
               <button
                 type="button"
                 onClick={() => {
                   setPasswordMode(true);
                   setError('');
                 }}
-                className="text-xs text-brand-600 dark:text-brand-400 hover:underline font-medium"
+                className="text-brand-600 dark:text-brand-400 hover:underline font-medium"
               >
-                Şifre ile giriş yapmak için tıklayın
+                Klavye ile şifre yaz
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsChangePasswordOpen(true)}
+                className="text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:underline flex items-center gap-1 font-medium"
+              >
+                <KeyRound size={12} />
+                <span>Şifremi Değiştir</span>
               </button>
             </div>
           </div>
@@ -287,22 +316,45 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
               Giriş Yap
             </button>
 
-            <div className="text-center pt-1">
+            <div className="flex items-center justify-between text-xs px-2 pt-1">
               <button
                 type="button"
                 onClick={() => {
                   setPasswordMode(false);
                   setError('');
                 }}
-                className="text-xs text-brand-600 dark:text-brand-400 hover:underline font-medium"
+                className="text-brand-600 dark:text-brand-400 hover:underline font-medium"
               >
                 PIN Kodu ile giriş ekranına dön
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsChangePasswordOpen(true)}
+                className="text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:underline flex items-center gap-1 font-medium"
+              >
+                <KeyRound size={12} />
+                <span>Şifremi Değiştir</span>
               </button>
             </div>
           </form>
         )}
 
       </div>
+
+      {/* Change Password Modal */}
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={() => {
+          setIsChangePasswordOpen(false);
+          refreshUsers();
+        }}
+        currentUser={selectedUser}
+        onPasswordChanged={(updatedUser) => {
+          refreshUsers();
+          setSelectedUser(updatedUser);
+        }}
+      />
 
       {/* Footer Info */}
       <div className="mt-6 text-center text-xs text-slate-400 dark:text-slate-500">

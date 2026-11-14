@@ -14,6 +14,7 @@ import {
   Bike,
   LogOut,
   Lock,
+  KeyRound,
 } from 'lucide-react';
 import { User } from '../types';
 import { formatDate, formatCurrency } from '../utils/format';
@@ -24,6 +25,7 @@ interface HeaderProps {
   onQuickPos: () => void;
   onOpenDownloadModal?: () => void;
   onGoToYemeksepeti?: () => void;
+  onOpenChangePassword?: () => void;
   onLogout?: () => void;
   cashBalance: number;
   todayRevenue: number;
@@ -38,6 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
   onQuickPos,
   onOpenDownloadModal,
   onGoToYemeksepeti,
+  onOpenChangePassword,
   onLogout,
   cashBalance,
   todayRevenue,
@@ -169,7 +172,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div className="text-left text-xs leading-tight hidden sm:block">
             <div className="font-semibold text-slate-800 dark:text-white flex items-center gap-1">
-              <span>{currentUser.display_name.split(' ')[0]}</span>
+              <span>{currentUser.display_name}</span>
               {currentUser.role === 'admin' && (
                 <ShieldCheck size={11} className="text-brand-500" />
               )}
@@ -179,6 +182,18 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
         </button>
+
+        {/* Change Password Button */}
+        {onOpenChangePassword && (
+          <button
+            onClick={onOpenChangePassword}
+            title="Kendi Şifrenizi / PIN Kodunuzu Değiştirin"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-semibold transition-all active:scale-95"
+          >
+            <KeyRound size={13} />
+            <span className="hidden xl:inline">Şifre Değiştir</span>
+          </button>
+        )}
 
         {/* Logout / Lock Button */}
         {onLogout && (

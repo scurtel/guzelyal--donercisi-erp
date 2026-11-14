@@ -12,10 +12,13 @@ import {
   CheckCircle,
   Database,
   Building,
+  User as UserIcon,
+  ShieldCheck,
 } from 'lucide-react';
 import { User, AuditLog } from '../types';
 import { formatCurrency, formatDateTime } from '../utils/format';
 import { dbService } from '../db/database';
+import { ChangePasswordModal } from '../components/ChangePasswordModal';
 
 interface SettingsModuleProps {
   currentUser: User;
@@ -34,6 +37,13 @@ export const SettingsModule: React.FC<SettingsModuleProps> = ({
   const [dailyFixed, setDailyFixed] = useState(currentSettings.daily_fixed_expenses || '5550');
   const [targetProfit, setTargetProfit] = useState(currentSettings.target_daily_profit || '12000');
   const [defaultCommission, setDefaultCommission] = useState(currentSettings.default_yemeksepeti_commission || '15');
+
+  const [usersList, setUsersList] = useState<User[]>(() => dbService.getUsers());
+  const [userForPasswordChange, setUserForPasswordChange] = useState<User | null>(null);
+
+  const refreshUsersList = () => {
+    setUsersList(dbService.getUsers());
+  };
 
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>(() => {
     return dbService.query<AuditLog>('SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 50');
@@ -241,6 +251,102 @@ export const SettingsModule: React.FC<SettingsModuleProps> = ({
           </div>
         </div>
       </div>
+
+      {/* USER PROFILES & PASSWORD MANAGEMENT */}
+      <div className="bg-white dark:bg-navy-900 rounded-2xl border border-slate-200 dark:border-navy-800 p-5 shadow-xs space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="font-bold text-sm text-slate-800 dark:text-white flex items-center gap-2">
+              <KeyRound size={18} className="text-amber-500" />
+              <span>Kullanıcı Profilleri & Şifre Yönetimi</span>
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Yöneticiler ve çalışanlar kendi giriş şifrelerini veya PIN kodlarını buradan diledikleri zaman güncelleyebilir.
+            </p>
+          </div>
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+            {usersList.length} Kayıtlı Kullanıcı
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {usersList.map((user) => {
+            const isMe = currentUser.id === user.id;
+            return (
+              <div
+                key={user.id}
+                className={`p-4 rounded-2xl border transition-all flex flex-col justify-between gap-3 ${
+                  isMe
+                    ? 'bg-brand-50/40 dark:bg-brand-950/20 border-brand-500/40 shadow-xs'
+                    : 'bg-slate-50/70 dark:bg-navy-950/60 border-slate-200 dark:border-navy-800'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white font-black text-sm flex items-center justify-center shadow-xs">
+                      {user.display_name.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
+                        <span>{user.display_name}</span>
+                        {isMe && (
+                          <span className="text-[10px] font-bold text-brand-600 dark:text-brand-400 bg-brand-100 dark:bg-brand-900/60 px-1.5 py-0.2 rounded">
+                            Siz
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[11px] text-slate-500 font-mono">@{user.username}</div>
+                    </div>
+                  </div>
+
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                      user.role === 'admin'
+                        ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300 border border-rose-200 dark:border-rose-900'
+                        : user.role === 'usta'
+                        ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 border border-amber-200 dark:border-amber-900'
+                        : 'bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 border border-blue-200 dark:border-blue-900'
+                    }`}
+                  >
+                    {user.role === 'admin' ? 'Yönetici' : user.role === 'usta' ? 'Usta' : 'Kasiyer'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-slate-200/60 dark:border-navy-800">
+                  <span className="text-[11px] text-slate-400 font-mono">
+                    Şifre: ••••••
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setUserForPasswordChange(user)}
+                    className="px-3 py-1.5 bg-white dark:bg-navy-800 hover:bg-amber-50 dark:hover:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-slate-200 dark:border-navy-700 hover:border-amber-400 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition-colors"
+                  >
+                    <KeyRound size={13} />
+                    <span>Şifre Değiştir</span>
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* CHANGE PASSWORD MODAL */}
+      {userForPasswordChange && (
+        <ChangePasswordModal
+          isOpen={!!userForPasswordChange}
+          onClose={() => {
+            setUserForPasswordChange(null);
+            refreshUsersList();
+          }}
+          currentUser={userForPasswordChange}
+          onPasswordChanged={() => {
+            refreshUsersList();
+            onSettingsChanged();
+          }}
+        />
+      )}
 
       {/* AUDIT LOGS TABLE */}
       <div className="bg-white dark:bg-navy-900 rounded-2xl border border-slate-200 dark:border-navy-800 p-5 shadow-xs space-y-4">

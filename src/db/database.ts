@@ -161,6 +161,29 @@ class DatabaseService {
       this.db.run(REAL_ORDERS_SQL);
       this.db.run(REAL_YEMEKSEPETI_ORDERS_SQL);
 
+      // 6. Ensure Administrators exist: Yigit Cilli, Danyal Cilli, Doruk Cilli (Initial Password: 123456)
+      this.db.run(`
+        INSERT OR IGNORE INTO users (id, username, password_hash, display_name, role, pin_code) VALUES
+        (1, 'yigitcilli', '123456', 'Yigit Cilli', 'admin', '123456'),
+        (2, 'danyalcilli', '123456', 'Danyal Cilli', 'admin', '123456'),
+        (3, 'dorukcilli', '123456', 'Doruk Cilli', 'admin', '123456'),
+        (4, 'kasiyer', 'kasiyer123', 'Kasa Personeli', 'kasiyer', '0000'),
+        (5, 'usta', 'usta123', 'Döner Ustası', 'usta', '1111');
+      `);
+      // Update existing rows if they had previous names
+      this.db.run(`
+        UPDATE users SET display_name = 'Yigit Cilli', username = 'yigitcilli' WHERE id = 1 AND (username = 'admin' OR display_name = 'Yönetici (Admin)');
+      `);
+      this.db.run(`
+        UPDATE users SET pin_code = '123456', password_hash = '123456' WHERE id = 1 AND pin_code = '1234';
+      `);
+      this.db.run(`
+        UPDATE users SET display_name = 'Danyal Cilli', username = 'danyalcilli', role = 'admin' WHERE id = 2 AND username != 'danyalcilli';
+      `);
+      this.db.run(`
+        UPDATE users SET display_name = 'Doruk Cilli', username = 'dorukcilli', role = 'admin' WHERE id = 3 AND username != 'dorukcilli';
+      `);
+
       // 3. Update existing products to match the real physical menu board
       const priceUpdates = [
         { code: 'PRD-TVK-SER', name: 'Tavuk Döner Servis', price: 230.0, ysPrice: 265.0 },
@@ -301,6 +324,48 @@ class DatabaseService {
       'INSERT INTO settings (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP) ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = CURRENT_TIMESTAMP',
       [key, value]
     );
+  }
+
+  // --- USERS & CREDENTIALS ---
+  getUsers(): User[] {
+    const fallbackUsers: User[] = [
+      { id: 1, username: 'yigitcilli', display_name: 'Yigit Cilli', role: 'admin', pin_code: '123456' },
+      { id: 2, username: 'danyalcilli', display_name: 'Danyal Cilli', role: 'admin', pin_code: '123456' },
+      { id: 3, username: 'dorukcilli', display_name: 'Doruk Cilli', role: 'admin', pin_code: '123456' },
+      { id: 4, username: 'kasiyer', display_name: 'Kasa Personeli', role: 'kasiyer', pin_code: '0000' },
+      { id: 5, username: 'usta', display_name: 'Döner Ustası', role: 'usta', pin_code: '1111' },
+    ];
+    if (!this.db) return fallbackUsers;
+    try {
+      const rows = this.query<User>(
+        'SELECT id, username, display_name, role, pin_code, created_at FROM users ORDER BY id ASC'
+      );
+      return rows.length > 0 ? rows : fallbackUsers;
+    } catch {
+      return fallbackUsers;
+    }
+  }
+
+  getUserById(id: number): User | null {
+    const users = this.getUsers();
+    return users.find((u) => u.id === id) || null;
+  }
+
+  updateUserPassword(userId: number, newPasswordOrPin: string): void {
+    this.run('UPDATE users SET pin_code = ?, password_hash = ? WHERE id = ?', [
+      newPasswordOrPin,
+      newPasswordOrPin,
+      userId,
+    ]);
+    this.persist();
+  }
+
+  verifyUserCredentials(userId: number, passwordOrPin: string): boolean {
+    const rows = this.query<{ count: number }>(
+      'SELECT count(*) as count FROM users WHERE id = ? AND (pin_code = ? OR password_hash = ?)',
+      [userId, passwordOrPin, passwordOrPin]
+    );
+    return (rows[0]?.count || 0) > 0;
   }
 
   // --- PRODUCTS & MENU ---

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ShieldCheck, UserCheck, X, KeyRound, AlertCircle } from 'lucide-react';
 import { User } from '../types';
+import { dbService } from '../db/database';
+import { ChangePasswordModal } from './ChangePasswordModal';
 
 interface PinLoginModalProps {
   isOpen: boolean;
@@ -15,25 +17,30 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
   onSelectUser,
   currentUser,
 }) => {
-  const users: User[] = [
-    { id: 1, username: 'admin', display_name: 'Yönetici (Admin)', role: 'admin', pin_code: '1234' },
-    { id: 2, username: 'kasiyer', display_name: 'Kasa Personeli', role: 'kasiyer', pin_code: '0000' },
-    { id: 3, username: 'usta', display_name: 'Döner Ustası', role: 'usta', pin_code: '1111' },
-  ];
-
+  const [users, setUsers] = useState<User[]>(() => dbService.getUsers());
   const [selectedUser, setSelectedUser] = useState<User>(currentUser);
   const [pin, setPin] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState<boolean>(false);
 
   if (!isOpen) return null;
 
+  const expectedPinLength = selectedUser.pin_code?.length || 6;
+
+  const refreshUsers = () => {
+    const list = dbService.getUsers();
+    setUsers(list);
+    const updated = list.find((u) => u.id === selectedUser.id) || list[0];
+    setSelectedUser(updated);
+  };
+
   const handleKeyPress = (num: string) => {
-    if (pin.length < 4) {
+    if (pin.length < expectedPinLength) {
       const next = pin + num;
       setPin(next);
       setError('');
-      if (next.length === 4) {
-        verifyPin(next, selectedUser);
+      if (next.length === expectedPinLength) {
+        setTimeout(() => verifyPin(next, selectedUser), 50);
       }
     }
   };
@@ -44,8 +51,9 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
   };
 
   const verifyPin = (enteredPin: string, user: User) => {
-    if (enteredPin === user.pin_code) {
-      onSelectUser(user);
+    const freshUser = dbService.getUserById(user.id) || user;
+    if (enteredPin === freshUser.pin_code || enteredPin === (freshUser as any).password_hash) {
+      onSelectUser(freshUser);
       onClose();
       setPin('');
       setError('');
@@ -57,7 +65,7 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-navy-900 rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-200 dark:border-navy-700 animate-in fade-in zoom-in-95 duration-150">
+      <div className="bg-white dark:bg-navy-900 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 dark:border-navy-700 animate-in fade-in zoom-in-95 duration-150">
         <div className="px-5 py-4 bg-slate-100 dark:bg-navy-800 flex items-center justify-between border-b border-slate-200 dark:border-navy-700">
           <div className="flex items-center gap-2">
             <KeyRound size={18} className="text-brand-500" />
@@ -75,7 +83,7 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
 
         <div className="p-6">
           {/* User selector cards */}
-          <div className="grid grid-cols-3 gap-2 mb-6">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-6">
             {users.map((u) => {
               const isSelected = selectedUser.id === u.id;
               return (
@@ -86,14 +94,14 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
                     setPin('');
                     setError('');
                   }}
-                  className={`p-3 rounded-xl flex flex-col items-center gap-1.5 border transition-all ${
+                  className={`p-2.5 rounded-xl flex flex-col items-center gap-1 border transition-all text-center ${
                     isSelected
                       ? 'bg-brand-50 dark:bg-brand-950/40 border-brand-500 text-brand-600 dark:text-brand-400 ring-2 ring-brand-500/20 shadow-xs'
                       : 'border-slate-200 dark:border-navy-800 hover:bg-slate-50 dark:hover:bg-navy-800 text-slate-600 dark:text-slate-400'
                   }`}
                 >
                   <div
-                    className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
                       isSelected
                         ? 'bg-brand-500 text-white'
                         : 'bg-slate-200 dark:bg-navy-700 text-slate-600 dark:text-slate-300'
@@ -101,11 +109,11 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
                   >
                     {u.display_name.charAt(0)}
                   </div>
-                  <span className="text-xs font-semibold leading-tight text-center">
-                    {u.role === 'admin' ? 'Yönetici' : u.role === 'usta' ? 'Usta' : 'Kasiyer'}
+                  <span className="text-[11px] font-bold leading-tight truncate max-w-[65px]">
+                    {u.display_name}
                   </span>
-                  <span className="text-[10px] text-slate-400">
-                    PIN: {u.pin_code}
+                  <span className="text-[9px] text-slate-400 capitalize">
+                    {u.role === 'admin' ? 'Yönetici' : u.role === 'usta' ? 'Usta' : 'Kasiyer'}
                   </span>
                 </button>
               );
@@ -113,17 +121,17 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
           </div>
 
           {/* Selected user name and PIN dots */}
-          <div className="text-center mb-6">
+          <div className="text-center mb-5">
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
-              Giriş yapılacak: <span className="font-semibold text-slate-800 dark:text-white">{selectedUser.display_name}</span>
+              Giriş yapılacak: <span className="font-bold text-slate-800 dark:text-white">{selectedUser.display_name}</span>
             </p>
-            <div className="flex justify-center gap-3 my-3">
-              {[0, 1, 2, 3].map((idx) => (
+            <div className="flex justify-center gap-2.5 my-3">
+              {Array.from({ length: expectedPinLength }).map((_, idx) => (
                 <div
                   key={idx}
-                  className={`w-4 h-4 rounded-full transition-all duration-150 ${
+                  className={`w-3.5 h-3.5 rounded-full transition-all duration-150 ${
                     pin.length > idx
-                      ? 'bg-brand-500 scale-110 shadow-sm shadow-brand-500/40'
+                      ? 'bg-brand-500 scale-125 shadow-sm shadow-brand-500/40'
                       : 'bg-slate-200 dark:bg-navy-800 border border-slate-300 dark:border-navy-700'
                   }`}
                 />
@@ -131,7 +139,7 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
             </div>
 
             {error && (
-              <div className="flex items-center justify-center gap-1.5 text-xs text-red-500 mt-2">
+              <div className="flex items-center justify-center gap-1.5 text-xs text-rose-500 font-semibold mt-2">
                 <AlertCircle size={14} />
                 <span>{error}</span>
               </div>
@@ -139,7 +147,7 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
           </div>
 
           {/* Number Pad */}
-          <div className="grid grid-cols-3 gap-2.5 max-w-[240px] mx-auto">
+          <div className="grid grid-cols-3 gap-2.5 max-w-[240px] mx-auto mb-4">
             {['1', '2', '3', '4', '5', '6', '7', '8', '9', 'C', '0', '⌫'].map((key) => {
               const isAction = key === 'C' || key === '⌫';
               return (
@@ -155,7 +163,7 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
                       handleKeyPress(key);
                     }
                   }}
-                  className={`h-12 rounded-xl font-bold text-base transition-all active:scale-95 flex items-center justify-center ${
+                  className={`h-11 rounded-xl font-bold text-base transition-all active:scale-95 flex items-center justify-center ${
                     isAction
                       ? 'bg-slate-100 dark:bg-navy-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-navy-700'
                       : 'bg-white dark:bg-navy-950 border border-slate-200 dark:border-navy-800 text-slate-800 dark:text-white hover:bg-brand-50 dark:hover:bg-brand-950/20 hover:border-brand-500/40 shadow-xs'
@@ -166,8 +174,32 @@ export const PinLoginModal: React.FC<PinLoginModalProps> = ({
               );
             })}
           </div>
+
+          <div className="text-center pt-1 border-t border-slate-100 dark:border-navy-800">
+            <button
+              type="button"
+              onClick={() => setIsChangePasswordOpen(true)}
+              className="text-xs text-brand-600 dark:text-brand-400 hover:underline font-semibold flex items-center justify-center gap-1 mx-auto"
+            >
+              <KeyRound size={13} />
+              <span>{selectedUser.display_name} için Şifre Değiştir</span>
+            </button>
+          </div>
         </div>
       </div>
+
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={() => {
+          setIsChangePasswordOpen(false);
+          refreshUsers();
+        }}
+        currentUser={selectedUser}
+        onPasswordChanged={(updatedUser) => {
+          refreshUsers();
+          setSelectedUser(updatedUser);
+        }}
+      />
     </div>
   );
 };
