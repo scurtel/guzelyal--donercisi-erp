@@ -1,0 +1,3 @@
+# Protect SQLite Database File from direct web access
+Order deny,allow
+Deny from all
