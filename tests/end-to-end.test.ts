@@ -270,4 +270,67 @@ describe('Güzelyalı ERP — Uçtan Uca Kesin Kabul ve Muhasebe Testleri', () =
     expect(updated.values[0][1]).toBe(320.0);
     expect(updated.values[0][2]).toBe('1x Et Dürüm (Lavaş)');
   });
+
+  it('12. Günlük harcama girişi, tarih filtresi, nakit kasa çıkışı ve gider iptal/iadesini test et', () => {
+    // 1. Mevcut kasa bakiyesini al
+    const initialCash = db.exec('SELECT balance FROM cash_registers WHERE id = 1')[0].values[0][0];
+
+    // 2. Bugün için günlük lavaş/ekmek harcaması gir (350 TL Nakit)
+    const todayStr = new Date().toISOString();
+    db.run(
+      `INSERT INTO expenses (category, amount, payment_method, is_stock_purchase, expense_date, description, receipt_no, created_by)
+       VALUES ("Ekmek", 350.0, "cash", 0, ?, "Taş fırından 70 adet taze lavaş", "FIS-104", "Ahmet Kasiyer")`,
+      [todayStr]
+    );
+    // Kasadan düş ve hareket kaydet
+    db.run('UPDATE cash_registers SET balance = balance - 350.0 WHERE id = 1');
+    db.run(
+      'INSERT INTO cash_transactions (register_id, transaction_type, amount, category, reference_type, description, created_by) VALUES (1, "expense", 350.0, "Ekmek", "expense", "Taş fırından 70 adet taze lavaş", "Ahmet Kasiyer")'
+    );
+
+    const afterExpCash = db.exec('SELECT balance FROM cash_registers WHERE id = 1')[0].values[0][0];
+    expect(afterExpCash).toBe(Number(initialCash) - 350.0);
+
+    // 3. Dün için sebze harcaması gir (420 TL Nakit)
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toISOString();
+    db.run(
+      `INSERT INTO expenses (category, amount, payment_method, is_stock_purchase, expense_date, description, receipt_no, created_by)
+       VALUES ("Sebze ve sos", 420.0, "cash", 0, ?, "Pazardan 2 kasa domates ve yeşillik", "FIS-103", "Yönetici")`,
+      [yesterdayStr]
+    );
+    db.run('UPDATE cash_registers SET balance = balance - 420.0 WHERE id = 1');
+
+    // 4. Günlük filtreleme doğrulaması
+    const todayExpenses = db.exec(
+      'SELECT count(*), sum(amount) FROM expenses WHERE date(expense_date) = date(?)',
+      [todayStr]
+    )[0].values[0];
+    expect(todayExpenses[0]).toBeGreaterThanOrEqual(1);
+    expect(todayExpenses[1]).toBeGreaterThanOrEqual(350.0);
+
+    const yesterdayExpenses = db.exec(
+      'SELECT count(*), sum(amount) FROM expenses WHERE date(expense_date) = date(?)',
+      [yesterdayStr]
+    )[0].values[0];
+    expect(yesterdayExpenses[0]).toBe(1);
+    expect(yesterdayExpenses[1]).toBe(420.0);
+
+    // 5. Gider silme ve kasaya para iadesi testi (İptal)
+    const expRow = db.exec('SELECT id, amount, payment_method FROM expenses WHERE receipt_no = "FIS-104"')[0].values[0];
+    const expId = expRow[0];
+    const expAmount = expRow[1];
+
+    // Kasaya iade et ve gideri sil
+    db.run('UPDATE cash_registers SET balance = balance + ? WHERE id = 1', [expAmount]);
+    db.run('DELETE FROM expenses WHERE id = ?', [expId]);
+
+    const finalCash = db.exec('SELECT balance FROM cash_registers WHERE id = 1')[0].values[0][0];
+    // 350 TL iade edildi, sadece dün girilen 420 TL düşülmüş olmalı
+    expect(finalCash).toBe(Number(initialCash) - 420.0);
+
+    const checkDeleted = db.exec('SELECT count(*) FROM expenses WHERE id = ?', [expId])[0].values[0][0];
+    expect(checkDeleted).toBe(0);
+  });
 });

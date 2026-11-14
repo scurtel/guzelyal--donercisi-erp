@@ -985,6 +985,37 @@ class DatabaseService {
     });
   }
 
+  deleteExpense(expenseId: number): void {
+    return this.transaction(() => {
+      const expenses = this.query<Expense>('SELECT * FROM expenses WHERE id = ?', [expenseId]);
+      if (expenses.length === 0) return;
+      const exp = expenses[0];
+
+      // Revert cash register balance if paid by cash or bank
+      if (exp.payment_method === 'cash') {
+        this.run('UPDATE cash_registers SET balance = balance + ? WHERE id = 1', [exp.amount]);
+        this.run(
+          'INSERT INTO cash_transactions (register_id, transaction_type, amount, category, reference_type, reference_id, description, created_by) VALUES (1, "income", ?, "Gider İptali", "expense_cancel", ?, ?, ?)',
+          [exp.amount, expenseId, `Gider silindi / iade: ${exp.description}`, 'Yönetici']
+        );
+      } else if (exp.payment_method === 'bank') {
+        this.run('UPDATE cash_registers SET balance = balance + ? WHERE id = 2', [exp.amount]);
+        this.run(
+          'INSERT INTO cash_transactions (register_id, transaction_type, amount, category, reference_type, reference_id, description, created_by) VALUES (2, "income", ?, "Gider İptali", "expense_cancel", ?, ?, ?)',
+          [exp.amount, expenseId, `Gider silindi / iade: ${exp.description}`, 'Yönetici']
+        );
+      } else if (exp.payment_method === 'credit' && exp.account_id) {
+        this.run('UPDATE accounts SET balance = balance - ? WHERE id = ?', [exp.amount, exp.account_id]);
+        this.run(
+          'INSERT INTO account_transactions (account_id, type, amount, description, reference_id) VALUES (?, "debit", ?, ?, ?)',
+          [exp.account_id, exp.amount, `Gider silindi / borç düşüldü: ${exp.description}`, expenseId]
+        );
+      }
+
+      this.run('DELETE FROM expenses WHERE id = ?', [expenseId]);
+    });
+  }
+
   // --- CASH REGISTERS, TRANSFERS & Z-REPORT CLOSINGS ---
   getCashRegisters(): CashRegister[] {
     return this.query<CashRegister>('SELECT * FROM cash_registers ORDER BY id');

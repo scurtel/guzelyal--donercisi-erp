@@ -52,7 +52,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'production', label: 'Üretim Mühendisliği', icon: Flame, badge: null },
     { id: 'inventory', label: 'Akıllı Stok', icon: Boxes, badge: stockAlertCount > 0 ? stockAlertCount : null },
     { id: 'recipes', label: 'Reçeteler & Menü', icon: ChefHat, badge: null },
-    { id: 'accounting', label: 'Finansal Muhasebe', icon: Wallet, badge: null },
+    { id: 'accounting', label: 'Muhasebe & Harcamalar', icon: Wallet, badge: null },
     { id: 'menu-engineering', label: 'Menü Mühendisliği', icon: PieChart, badge: null },
     { id: 'breakeven', label: 'Başabaş Analizi', icon: Target, badge: null },
     { id: 'reports', label: 'Raporlama & Dışa Aktar', icon: FileSpreadsheet, badge: null },

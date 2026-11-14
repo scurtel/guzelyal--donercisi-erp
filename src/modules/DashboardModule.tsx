@@ -101,9 +101,13 @@ export const DashboardModule: React.FC<DashboardModuleProps> = ({
         </div>
 
         {/* 2. Bugünkü Toplam Gider */}
-        <div className="bg-white dark:bg-navy-900 p-4 rounded-xl border border-slate-200 dark:border-navy-800 shadow-xs hover:border-brand-500/40 transition-all">
+        <div
+          onClick={() => onNavigateTab?.('accounting')}
+          className="bg-white dark:bg-navy-900 p-4 rounded-xl border border-slate-200 dark:border-navy-800 shadow-xs hover:border-brand-500/40 hover:shadow-md transition-all cursor-pointer group"
+          title="Harcamaları Gör & Günlük Gider Ekle"
+        >
           <div className="flex items-center justify-between text-slate-500 dark:text-navy-400 mb-2">
-            <span className="text-xs font-medium">Bugünkü İşletme Gideri</span>
+            <span className="text-xs font-medium group-hover:text-rose-600 transition-colors">Bugünkü İşletme Gideri</span>
             <div className="p-2 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400">
               <TrendingUp size={16} className="rotate-180" />
             </div>
@@ -111,8 +115,9 @@ export const DashboardModule: React.FC<DashboardModuleProps> = ({
           <div className="text-2xl font-bold text-slate-900 dark:text-white">
             {formatCurrency(metrics.todayExpenses)}
           </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-            Faaliyet giderleri (Stok alımı hariç)
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 flex items-center justify-between">
+            <span>Faaliyet giderleri (Stok alımı hariç)</span>
+            <span className="text-rose-600 font-semibold group-hover:underline">Gider Ekle &rarr;</span>
           </div>
         </div>
 
