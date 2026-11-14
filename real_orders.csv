@@ -1,0 +1,157 @@
+#,Sipariş numarası,Durum,Tarih,Müşteri,Telefon,Ödeme,Nakit,Kredi kartı,Online,Kapıda Yemek Kartı,Kurye,Hazırlanma süresi,Sipariş kaynağı,Çözülen adres,Adres mesafesi,Gelen adres
+1,7.93040934086561e+17,İPTAL EDİLDİ,14.11.2026 14:27:22,Halil Aky***,905377787870,Kredi kartı,"₺0,00","₺0,00","₺0,00","₺0,00",-,5 dk,Yemek sepeti,"Toros Adana, 78059. Sokak Belinay concept Adana","2,47 km","Toros Adana, 78059. Sokak No:Belinay concept kat:2/3 Adana"
+2,3.1088394431443323e+18,TESLİM EDİLDİ,14.11.2026 14:23:03,bilal can***,905446400106,Online,"₺0,00","₺0,00","₺230,00","₺0,00",MERTCAN KARACAN,5 dk,Yemek sepeti,"Yurt Çukurova, 71507. Sk. 3 A Adana","1,58 km","Yurt Çukurova, 71507. Sk. No:3 A Adana"
+3,66558536047948104,TESLİM EDİLDİ,14.11.2026 14:23:40,Ceren Asl***,905427678802,Online,"₺0,00","₺0,00","₺460,00","₺0,00",AZİZCAN DEMİRAL,5 dk,Yemek sepeti,"Kayalıbağ Adana, Turhan Cemal Beriker Bulvarı Çolakoglu iş hanı Adana","8,66 km","Kayalıbağ Adana, Turhan Cemal Beriker Bulvarı No:Çolakoglu iş hanı kat:2/2 Adana"
+4,3.6619295798480148e+18,TESLİM EDİLDİ,14.11.2026 14:17:57,Mustafa Şim***,905056427769,Kredi kartı,"₺0,00","₺690,00","₺0,00","₺0,00",SÜLEYMAN BOZDOĞAN,5 dk,Yemek sepeti,"2000 Evler Adana, 76071. Sokak 2/3 Adana","6,24 km","2000 Evler Adana, 76071. Sokak No:2/3 kat:3/6 Adana"
+5,2.8217201420352781e+17,TESLİM EDİLDİ,14.11.2026 13:52:13,belirtilmedi -***,905075372983,Kredi kartı,"₺0,00","₺360,00","₺0,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Kokpit,"Beyazevler Mah, 80050 Cad/Sokak, No: 10, İlçe: Çukurova","3,86 km","Beyazevler Mah, 80050 Cad/Sokak, No: 10, İlçe: Çukurova"
+6,1.1640904467087839e+18,TESLİM EDİLDİ,14.11.2026 13:47:23,ismet tüm***,905549837466,Nakit,"₺230,00","₺0,00","₺0,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,"Mahfesığmaz Çukurova, Damar Arıkoğlu Blv. 5A Adana","1,81 km","Mahfesığmaz Çukurova, Damar Arıkoğlu Blv. No:5A kat:3/14 Adana"
+7,4.4515447724941882e+17,TESLİM EDİLDİ,14.11.2026 13:30:54,belirtilmedi -***,905075372983,Kredi kartı,"₺0,00","₺900,00","₺0,00","₺0,00",BURÇİN KAÇAR,5 dk,Kokpit,"Beyazevler Mah, 80050 Cad/Sokak, No: 10, İlçe: Çukurova","3,86 km","Beyazevler Mah, 80050 Cad/Sokak, No: 10, İlçe: Çukurova"
+8,1.7174633393950167e+18,TESLİM EDİLDİ,13.11.2026 19:07:19,Fulya .***,905447662161,Kredi kartı,"₺0,00","₺230,00","₺0,00","₺0,00",AHMET  ALÇI,5 dk,Yemek sepeti,"Huzurevleri Adana, 77190. Sokak 2 Adana","2,78 km","Huzurevleri Adana, 77190. Sokak No:2 kat:4/4 Adana"
+9,2.6216932643400835e+17,TESLİM EDİLDİ,13.11.2026 18:26:35,Burkay Tek***,905322470552,Online,"₺0,00","₺0,00","₺490,00","₺0,00",KADİR HOSARİ,5 dk,Yemek sepeti,"Güzelyalı Çukurova, 81150. Sk. 6-1 Adana","730,00 m","Güzelyalı Çukurova, 81150. Sk. No:6-1 kat:8/30 Adana"
+10,9.7294682016812864e+17,TESLİM EDİLDİ,13.11.2026 18:06:30,Metehan Yıl***,905309293601,Online,"₺0,00","₺0,00","₺230,00","₺0,00",MUSTAFA KARAKURT,5 dk,Yemek sepeti,"Yurt Adana, İsmail Hakkı Develi Bulvarı 7 Adana","1,88 km","Yurt Adana, İsmail Hakkı Develi Bulvarı No:7 kat:8/15 Adana"
+11,1.5880902076480064e+17,TESLİM EDİLDİ,13.11.2026 17:41:51,Yunus Yüc***,905313662903,Online,"₺0,00","₺0,00","₺310,00","₺0,00",MUSTAFA KARAKURT,5 dk,Yemek sepeti,"Güzelyalı Adana, 81185. Sokak 18/2 Adana","1,04 km","Güzelyalı Adana, 81185. Sokak No:18/2 kat:Zemin/23 Adana"
+12,1.5762517046695496e+18,TESLİM EDİLDİ,13.11.2026 16:56:31,Yunus Yüc***,905313662903,Online,"₺0,00","₺0,00","₺310,00","₺0,00",AHMET  ALÇI,5 dk,Yemek sepeti,"Güzelyalı Adana, 81185. Sokak 18/2 Adana","1,04 km","Güzelyalı Adana, 81185. Sokak No:18/2 kat:Zemin/23 Adana"
+13,6.18444252475102e+17,TESLİM EDİLDİ,13.11.2026 16:32:47,ÖZGE ERT***,905066016568,Online,"₺0,00","₺0,00","₺410,00","₺0,00",EVREN SERÇALI,5 dk,Yemek sepeti,"Güzelyalı Adana, 81053. Sokak 6A Adana","2,51 km","Güzelyalı Adana, 81053. Sokak No:6A kat:Zemin/6A Adana"
+14,2.5216493550108457e+18,TESLİM EDİLDİ,13.11.2026 16:10:33,İnci Kum***,905056327522,Nakit,"₺380,00","₺0,00","₺0,00","₺0,00",RECAİ YURDAGÜL,5 dk,Yemek sepeti,"Toros Adana, Şair Hasibe Hatun Caddesi 46 Adana","1,75 km","Toros Adana, Şair Hasibe Hatun Caddesi No:46 kat:4/8 Adana"
+15,5.9924267687577446e+17,TESLİM EDİLDİ,13.11.2026 15:18:51,Volkan Cin***,905358801240,Kredi kartı,"₺0,00","₺410,00","₺0,00","₺0,00",EREN  ARARAT,5 dk,Yemek sepeti,"Güzelyalı Adana, 81191. Sokak 1B Adana","1,52 km","Güzelyalı Adana, 81191. Sokak No:1B kat:Zemin kat/1/1 Adana"
+16,5.8014245304806182e+17,İPTAL EDİLDİ,13.11.2026 14:06:46,Meal Che***,900000000000,Online,"₺0,00","₺0,00","₺0,00","₺0,00",EVREN SERÇALI,5 dk,Trendyol yemek,Mahalle:Güzelyalı Mah İl/İlçe:Adana/Çukurova,"2,00 m",Meal Checkout Test Order Test Line
+17,3.6475548422484762e+17,TESLİM EDİLDİ,13.11.2026 13:35:29,sebnur toz***,905067159951,Online,"₺0,00","₺0,00","₺1.370,00","₺0,00",RECAİ YURDAGÜL,5 dk,Yemek sepeti,"Toros Adana, 78153. Sokak 8 Adana","1,66 km","Toros Adana, 78153. Sokak No:8 kat:10/31 Adana"
+18,7.481173760914185e+17,TESLİM EDİLDİ,13.11.2026 13:35:29,sevilay y.***,900000000000,Online,"₺0,00","₺0,00","₺360,00","₺0,00",HASAN KAYA,5 dk,Trendyol yemek,Mahalle:Huzurevleri Mah Apartman No:b blok  Kat:3 Kapı No:6 İl/İlçe:Adana/Çukurova,"3,39 km","Pınar, 77005. Sk."
+19,3.9485277257446266e+17,İPTAL EDİLDİ,13.11.2026 13:14:38,belirtilmedi -***,05*********,Online,"₺0,00","₺0,00","₺0,00","₺0,00",RECAİ YURDAGÜL,5 dk,Kokpit,"Pınar Mah, 74005 Cad/Sokak, No: 10, İlçe: Seyhan","4,07 km","Pınar Mah, 74005 Cad/Sokak, No: 10, İlçe: Seyhan"
+20,5.6239001369549696e+17,TESLİM EDİLDİ,13.11.2026 13:08:20,yasin tan***,05*********,Kredi kartı,"₺0,00","₺1.080,00","₺0,00","₺0,00",RECAİ YURDAGÜL,5 dk,Kokpit,Beyazevler Mh. 80055. Sk.  PK: 01170 Çukurova Adana ,"3,92 km","Beyazevler Mah, 80018 Cad/Sokak, No: 4B, İlçe: Çukurova"
+21,1.4526292289194793e+18,TESLİM EDİLDİ,13.11.2026 12:41:44,ayaz özc***,905302532705,Online,"₺0,00","₺0,00","₺379,00","₺0,00",MELİH KOLANKAYA,5 dk,Kokpit,"Güzelyalı Mah, 81191 Cad/Sokak, No: 1A, İlçe: Çukurova","1,54 km","Güzelyalı Mah, 81191 Cad/Sokak, No: 1A, İlçe: Çukurova"
+22,9.6687316367243546e+17,TESLİM EDİLDİ,11.11.2026 18:15:18,Adnan Yıl***,905526672078,Kredi kartı,"₺0,00","₺490,00","₺0,00","₺0,00",MUHAMMED YUSUF YILDIRIM,5 dk,Yemek sepeti,"Güzelyalı Adana, 81033. Sokak 2 Adana","2,83 km","Güzelyalı Adana, 81033. Sokak No:2 kat:2/6 Adana"
+23,1.1760001896136407e+18,TESLİM EDİLDİ,11.11.2026 17:51:52,murat cig***,905376052027,Kredi kartı,"₺0,00","₺760,00","₺0,00","₺0,00",BURÇİN KAÇAR,5 dk,Kokpit,"Toros Mah, 78027 Cad/Sokak, No: 1, İlçe: Çukurova","2,42 km","Toros Mah, 78027 Cad/Sokak, No: 1, İlçe: Çukurova"
+24,1.2661007422705254e+18,TESLİM EDİLDİ,11.11.2026 17:32:33,Orkun Şah***,905352604885,Online,"₺0,00","₺0,00","₺1.200,00","₺0,00",MELİH KOLANKAYA,5 dk,Yemek sepeti,"Yurt Adana, Turgut Özal Bulvarı 158-1A Adana","981,00 m","Yurt Adana, Turgut Özal Bulvarı No:158-1A kat:6/24 Adana"
+25,7.395217382877161e+17,TESLİM EDİLDİ,11.11.2026 17:12:03,ates ina***,905343351354,Nakit,"₺540,00","₺0,00","₺0,00","₺0,00",MEHMET ALTUNKAYNAK,5 dk,Yemek sepeti,"Belediye Evleri Adana, 84228. Sokak 4 Adana","3,93 km","Belediye Evleri Adana, 84228. Sokak No:4 kat:11/21 Adana"
+26,4.4751554794939731e+17,TESLİM EDİLDİ,11.11.2026 16:03:00,Mustafa Gud***,905367140480,Kredi kartı,"₺0,00","₺230,00","₺0,00","₺0,00",UTKU BABUÇCU,5 dk,Yemek sepeti,"Huzurevleri Adana, Türkmenbasi Bulvari 0 Adana","3,28 km","Huzurevleri Adana, Türkmenbasi Bulvari No:0 kat:./. Adana"
+27,8.0261262644925926e+17,TESLİM EDİLDİ,11.11.2026 15:00:59,Deniz Tur***,905323761734,Kredi kartı,"₺0,00","₺510,00","₺0,00","₺0,00",HASAN KAYA,5 dk,Yemek sepeti,"Gürselpaşa Mah. Seyhan, Şht Polis Şahin Polat Aydın Cad. merkez sit. Adana","8,05 km","Gürselpaşa Mah. Seyhan, Şht Polis Şahin Polat Aydın Cad. No:merkez sit. kat:6/20 Adana"
+28,2.3438911783188064e+17,TESLİM EDİLDİ,11.11.2026 14:25:55,Selma Can***,905336391833,Online,"₺0,00","₺0,00","₺660,00","₺0,00",MELİH KOLANKAYA,5 dk,Yemek sepeti,"Kabasakal Adana, 129025. Sokak 27/2 Adana","7,28 km","Kabasakal Adana, 129025. Sokak No:27/2 kat:yok/yok Adana"
+29,1.3296213970630912e+18,TESLİM EDİLDİ,11.11.2026 13:55:03,Yiğit Cil***,905442274999,Kredi kartı,"₺0,00","₺850,00","₺0,00","₺0,00",MERTCAN KARACAN,5 dk,Yemek sepeti,"Kayalıbağ Mah. Seyhan, Turhan Cemal Beriker Cad. No: 1 Adana","8,10 km","Kayalıbağ Mah. Seyhan, Turhan Cemal Beriker Cad. No: 1 kat:1/No 1 Adana"
+30,2.8361217179502316e+18,TESLİM EDİLDİ,11.11.2026 13:18:25,حسن الس***,905399419366,Kredi kartı,"₺0,00","₺230,00","₺0,00","₺0,00",AHMET  ALÇI,5 dk,Yemek sepeti,"Mahfesığmaz Adana, 79147. Sokak 3B Adana","1,00 km","Mahfesığmaz Adana, 79147. Sokak No:3B kat:1/1 Adana"
+31,2.0269829564568241e+18,TESLİM EDİLDİ,11.11.2026 12:58:45,ergin Atl***,905398325254,Kredi kartı,"₺0,00","₺700,00","₺0,00","₺0,00",MAHMUT ZİYAN,5 dk,Yemek sepeti,"Huzurevleri Çukurova, 77079. Sk. No:9 Adana","3,31 km","Huzurevleri Çukurova, 77079. Sk. No:9 Adana"
+32,1.0142586609934111e+18,TESLİM EDİLDİ,11.11.2026 12:31:04,didem pal***,905382511204,Kredi kartı,"₺0,00","₺360,00","₺0,00","₺0,00",HAŞİM CAN,5 dk,Kokpit,"Yurt Mah, 71471 Cad/Sokak, No: 1A, İlçe: Çukurova","1,14 km","Yurt Mah, 71471 Cad/Sokak, No: 1A, İlçe: Çukurova"
+33,3.5896521411918065e+18,TESLİM EDİLDİ,11.11.2026 12:03:22,Başar Buk***,905326266740,Online,"₺0,00","₺0,00","₺495,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,"100. Yıl Mah Çukurova, 85183. Sk. No:4 Adana","4,83 km","100. Yıl Mah Çukurova, 85183. Sk. No:4 kat:3/ Adana"
+34,3.5573306549483251e+17,TESLİM EDİLDİ,11.11.2026 11:47:51,Serdar Gül***,905307840493,Kredi kartı,"₺0,00","₺620,00","₺0,00","₺0,00",BURÇİN KAÇAR,5 dk,Yemek sepeti,"Güzelyalı Mah. Çukurova, 81174 Sk. No: 1 Adana","429,00 m","Güzelyalı Mah. Çukurova, 81174 Sk. No: 1 kat:1/ Adana"
+35,1.1809227173089761e+18,TESLİM EDİLDİ,10.11.2026 19:46:35, ***,,Online,"₺0,00","₺0,00","₺845,00","₺0,00",SÜLEYMAN BOZDOĞAN,5 dk,Yemek sepeti,,"1,71 km",
+36,2.2122859421081923e+18,TESLİM EDİLDİ,10.11.2026 19:35:38, ***,,Kredi kartı,"₺0,00","₺230,00","₺0,00","₺0,00",İSLAM KUVVETTAŞI,5 dk,Yemek sepeti,,"2,09 km",
+37,1.8380535968297725e+18,TESLİM EDİLDİ,10.11.2026 18:02:17, ***,,Online,"₺0,00","₺0,00","₺620,00","₺0,00",EVREN SERÇALI,5 dk,Yemek sepeti,,"819,00 m",
+38,3.373032708599767e+18,TESLİM EDİLDİ,10.11.2026 17:49:11, ***,,Online,"₺0,00","₺0,00","₺310,00","₺0,00",MEHMET ALTUNKAYNAK,5 dk,Yemek sepeti,,"462,00 m",
+39,1.2168963431311839e+18,TESLİM EDİLDİ,10.11.2026 18:00:59, ***,,Online,"₺0,00","₺0,00","₺510,00","₺0,00",EVREN SERÇALI,5 dk,Yemek sepeti,,"5,68 km",
+40,2.0263838220133962e+18,TESLİM EDİLDİ,10.11.2026 17:44:11, ***,,Online,"₺0,00","₺0,00","₺720,00","₺0,00",MEHMET ALTUNKAYNAK,5 dk,Trendyol yemek,,"2,13 km",
+41,2.3301585035389486e+18,TESLİM EDİLDİ,10.11.2026 16:23:55, ***,,Online,"₺0,00","₺0,00","₺345,00","₺0,00",HASAN KAYA,5 dk,Trendyol yemek,,"682,00 m",
+42,7.504105066133129e+17,TESLİM EDİLDİ,10.11.2026 14:54:26, ***,,Online,"₺0,00","₺0,00","₺460,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"5,38 km",
+43,3.4810163081808829e+18,TESLİM EDİLDİ,10.11.2026 13:23:52, ***,,Online,"₺0,00","₺0,00","₺620,00","₺0,00",MERTCAN KARACAN,5 dk,Yemek sepeti,,"6,98 km",
+44,6589778538620508,TESLİM EDİLDİ,10.11.2026 12:52:46, ***,,Nakit,"₺379,12","₺0,00","₺0,00","₺0,00",MERTCAN KARACAN,5 dk,Yemek sepeti,,"2,35 km",
+45,1.02950210921833e+17,TESLİM EDİLDİ,10.11.2026 12:40:31, ***,,Kredi kartı,"₺0,00","₺640,00","₺0,00","₺0,00",EREN  ARARAT,5 dk,Yemek sepeti,,"4,97 km",
+46,1.5751127202113738e+18,TESLİM EDİLDİ,10.11.2026 12:17:21, ***,,Online,"₺0,00","₺0,00","₺230,00","₺0,00",MELİH KOLANKAYA,5 dk,Yemek sepeti,,"1,47 km",
+47,1.32043333678592e+17,İPTAL EDİLDİ,09.11.2026 19:59:27, ***,,Online,"₺0,00","₺0,00","₺0,00","₺0,00",-,5 dk,Trendyol yemek,,"3,97 km",
+48,4.7887487942526618e+17,TESLİM EDİLDİ,09.11.2026 20:33:00, ***,,Online,"₺0,00","₺0,00","₺470,00","₺0,00",HASAN KAYA,5 dk,Trendyol yemek,,"3,97 km",
+49,84292147388118768,TESLİM EDİLDİ,09.11.2026 20:21:40, ***,,Online,"₺0,00","₺0,00","₺580,00","₺0,00",EMİRHAN BOZOK,5 dk,Yemek sepeti,,"6,02 km",
+50,2.3240282817793568e+17,TESLİM EDİLDİ,09.11.2026 20:05:56, ***,,Kredi kartı,"₺0,00","₺350,00","₺0,00","₺0,00",UTKU BABUÇCU,5 dk,Yemek sepeti,,"5,14 km",
+51,4.9346184975467475e+17,İPTAL EDİLDİ,09.11.2026 19:47:54, ***,,Online,"₺0,00","₺0,00","₺0,00","₺0,00",-,5 dk,Yemek sepeti,,"18,16 km",
+52,2.67310859173486e+17,TESLİM EDİLDİ,09.11.2026 19:48:01, ***,,Online,"₺0,00","₺0,00","₺230,00","₺0,00",UTKU BABUÇCU,5 dk,Yemek sepeti,,"2,13 km",
+53,70518373009288368,İPTAL EDİLDİ,09.11.2026 19:47:34, ***,,Online,"₺0,00","₺0,00","₺0,00","₺0,00",YİĞİT SARPER DEVAM,5 dk,Trendyol yemek,,"3,11 km",
+54,3.0928700174226724e+18,TESLİM EDİLDİ,09.11.2026 19:35:07, ***,,Online,"₺0,00","₺0,00","₺230,00","₺0,00",HASAN KAYA,5 dk,Kokpit,,"2,88 km",
+55,3.9566695447403878e+17,TESLİM EDİLDİ,09.11.2026 19:32:30, ***,,Online,"₺0,00","₺0,00","₺490,00","₺0,00",HASAN KAYA,5 dk,Kokpit,,"712,00 m",
+56,1.3022701344126432e+17,İPTAL EDİLDİ,09.11.2026 18:54:32, ***,,Online,"₺0,00","₺0,00","₺0,00","₺0,00",HAŞİM CAN,5 dk,Yemek sepeti,,"18,16 km",
+57,5.2389712106386534e+17,TESLİM EDİLDİ,09.11.2026 18:05:10, ***,,Kredi kartı,"₺0,00","₺640,00","₺0,00","₺0,00",AHMET  ALÇI,5 dk,Yemek sepeti,,"9,26 km",
+58,2.2719196142635863e+18,TESLİM EDİLDİ,09.11.2026 16:25:33, ***,,Online,"₺0,00","₺0,00","₺379,12","₺0,00",MELİH KOLANKAYA,5 dk,Yemek sepeti,,"1,16 km",
+59,8.9327775085627251e+17,TESLİM EDİLDİ,09.11.2026 15:10:57, ***,,Online,"₺0,00","₺0,00","₺230,00","₺0,00",HAŞİM CAN,5 dk,Yemek sepeti,,"2,04 km",
+60,1.592651016173024e+18,TESLİM EDİLDİ,09.11.2026 14:38:31, ***,,Online,"₺0,00","₺0,00","₺230,00","₺0,00",MELİH KOLANKAYA,5 dk,Yemek sepeti,,"5,35 km",
+61,1.1293753711358589e+18,TESLİM EDİLDİ,09.11.2026 14:18:01, ***,,Online,"₺0,00","₺0,00","₺440,00","₺0,00",MELİH KOLANKAYA,5 dk,Trendyol yemek,,"1,27 km",
+62,1.6979189655875251e+18,TESLİM EDİLDİ,09.11.2026 14:07:30, ***,,Nakit,"₺620,00","₺0,00","₺0,00","₺0,00",MELİH KOLANKAYA,5 dk,Yemek sepeti,,"921,00 m",
+63,3.2782690449424845e+17,TESLİM EDİLDİ,09.11.2026 12:19:44, ***,,Nakit,"₺700,00","₺0,00","₺0,00","₺0,00",MERTCAN KARACAN,5 dk,Kokpit,,"7,03 km",
+64,1.2880273686855985e+18,TESLİM EDİLDİ,08.11.2026 19:30:35, ***,,Kredi kartı,"₺0,00","₺230,00","₺0,00","₺0,00",EVREN SERÇALI,5 dk,Yemek sepeti,,"1,22 km",
+65,2.1939530036551009e+18,TESLİM EDİLDİ,08.11.2026 19:29:03, ***,,Online,"₺0,00","₺0,00","₺310,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"730,00 m",
+66,4.9521234847226362e+17,TESLİM EDİLDİ,08.11.2026 18:19:56, ***,,Online,"₺0,00","₺0,00","₺615,00","₺0,00",BURÇİN KAÇAR,5 dk,Kokpit,,"2,94 km",
+67,4.4569274035429458e+18,TESLİM EDİLDİ,08.11.2026 13:11:00, ***,,Online,"₺0,00","₺0,00","₺460,00","₺0,00",MERTCAN KARACAN,5 dk,Yemek sepeti,,"1,11 km",
+68,7.9333793475547021e+17,TESLİM EDİLDİ,08.11.2026 12:41:49, ***,,Nakit,"₺1.000,00","₺0,00","₺0,00","₺0,00",RECAİ YURDAGÜL,5 dk,Yemek sepeti,,"11,48 km",
+69,2.8170590256765425e+18,TESLİM EDİLDİ,08.11.2026 12:04:03, ***,,Online,"₺0,00","₺0,00","₺672,00","₺0,00",MUSTAFA KARAKURT,5 dk,Yemek sepeti,,"6,17 km",
+70,1.1921995963955187e+18,TESLİM EDİLDİ,07.11.2026 19:38:03, ***,,Online,"₺0,00","₺0,00","₺834,12","₺0,00",EMİRHAN YÜKSEL,5 dk,Yemek sepeti,,"2,46 km",
+71,3.15533430242093e+18,TESLİM EDİLDİ,07.11.2026 19:38:03, ***,,Kredi kartı,"₺0,00","₺580,00","₺0,00","₺0,00",UTKU BABUÇCU,5 dk,Yemek sepeti,,"2,67 km",
+72,3.1605803425881364e+18,TESLİM EDİLDİ,07.11.2026 19:33:47, ***,,Online,"₺0,00","₺0,00","₺520,00","₺0,00",MAHMUT KAAN ATAL,5 dk,Yemek sepeti,,"6,02 km",
+73,4.30258937489409e+16,TESLİM EDİLDİ,07.11.2026 19:06:04, ***,,Online,"₺0,00","₺0,00","₺470,00","₺0,00",KADİR HOSARİ,5 dk,Trendyol yemek,,"1,79 km",
+74,3.6739331224377357e+17,TESLİM EDİLDİ,07.11.2026 19:01:39, ***,,Kredi kartı,"₺0,00","₺410,00","₺0,00","₺0,00",MURAT ARICIOĞLU,5 dk,Yemek sepeti,,"2,20 km",
+75,50722335865995584,TESLİM EDİLDİ,07.11.2026 18:36:07, ***,,Online,"₺0,00","₺0,00","₺1.090,00","₺0,00",MAHMUT KAAN ATAL,5 dk,Yemek sepeti,,"2,93 km",
+76,1.8019367945374756e+18,TESLİM EDİLDİ,07.11.2026 18:12:32, ***,,Online,"₺0,00","₺0,00","₺410,00","₺0,00",MERTCAN KARACAN,5 dk,Yemek sepeti,,"1,94 km",
+77,3.2166628694113976e+18,TESLİM EDİLDİ,07.11.2026 18:02:28, ***,,Online,"₺0,00","₺0,00","₺310,00","₺0,00",MERTCAN KARACAN,5 dk,Trendyol yemek,,"2,59 km",
+78,1.197368453157162e+18,TESLİM EDİLDİ,07.11.2026 17:30:04, ***,,Online,"₺0,00","₺0,00","₺690,00","₺0,00",HAŞİM CAN,5 dk,Yemek sepeti,,"3,60 km",
+79,1.2093863922432224e+17,TESLİM EDİLDİ,07.11.2026 17:04:53, ***,,Online,"₺0,00","₺0,00","₺430,00","₺0,00",HAŞİM CAN,5 dk,Yemek sepeti,,"1,23 km",
+80,94700640425193232,TESLİM EDİLDİ,07.11.2026 16:50:35, ***,,Online,"₺0,00","₺0,00","₺810,00","₺0,00",HAŞİM CAN,5 dk,Yemek sepeti,,"1,02 km",
+81,6.6336586465340237e+17,TESLİM EDİLDİ,07.11.2026 16:42:28, ***,,Nakit,"₺1.344,00","₺0,00","₺0,00","₺0,00",AZİZCAN DEMİRAL,5 dk,Yemek sepeti,,"3,50 km",
+82,2.0654948443644909e+17,TESLİM EDİLDİ,07.11.2026 16:14:47, ***,,Kredi kartı,"₺0,00","₺359,12","₺0,00","₺0,00",AZİZCAN DEMİRAL,5 dk,Yemek sepeti,,"1,16 km",
+83,1.0542507588874661e+18,TESLİM EDİLDİ,07.11.2026 15:21:03, ***,,Online,"₺0,00","₺0,00","₺600,00","₺0,00",EMİRHAN BOZOK,5 dk,Yemek sepeti,,"6,41 km",
+84,1.0456525151498981e+18,TESLİM EDİLDİ,07.11.2026 13:38:46, ***,,Online,"₺0,00","₺0,00","₺902,00","₺0,00",EREN  ARARAT,5 dk,Yemek sepeti,,"1,19 km",
+85,2.6924699567820611e+18,TESLİM EDİLDİ,07.11.2026 13:26:49, ***,,Online,"₺0,00","₺0,00","₺310,00","₺0,00",EREN  ARARAT,5 dk,Yemek sepeti,,"763,00 m",
+86,1.1126667427410192e+17,TESLİM EDİLDİ,07.11.2026 12:47:59, ***,,Kredi kartı,"₺0,00","₺379,12","₺0,00","₺0,00",BURÇİN KAÇAR,5 dk,Kokpit,,"1,42 km",
+87,7.2535685124395482e+17,İPTAL EDİLDİ,07.11.2026 12:15:15, ***,,Kredi kartı,"₺0,00","₺0,00","₺0,00","₺0,00",RECAİ YURDAGÜL,5 dk,Yemek sepeti,,"1,41 km",
+88,5.1983900876446963e+17,TESLİM EDİLDİ,07.11.2026 11:19:20, ***,,Nakit,"₺700,00","₺0,00","₺0,00","₺0,00",MERTCAN KARACAN,5 dk,Kokpit,,"7,03 km",
+89,4.047517196566297e+17,TESLİM EDİLDİ,02.11.2026 19:35:51, ***,,Nakit,"₺300,00","₺0,00","₺0,00","₺0,00",EMİRHAN BOZOK,5 dk,Yemek sepeti,,"948,00 m",
+90,3.7619725882926573e+17,TESLİM EDİLDİ,02.11.2026 19:35:51, ***,,Online,"₺0,00","₺0,00","₺320,00","₺0,00",AZİZCAN DEMİRAL,5 dk,Yemek sepeti,,"3,18 km",
+91,1.3588618952155816e+17,TESLİM EDİLDİ,02.11.2026 17:00:15, ***,,"Nakit, Kredi kartı","₺200,00","₺200,00","₺0,00","₺0,00",AZİZCAN DEMİRAL,5 dk,Yemek sepeti,,"19,61 km",
+92,1.6505084306969584e+17,TESLİM EDİLDİ,02.11.2026 16:31:20, ***,,Kredi kartı,"₺0,00","₺250,00","₺0,00","₺0,00",SEMİH ÖZBOLAT,5 dk,Yemek sepeti,,"2,62 km",
+93,1.5792168826486879e+18,TESLİM EDİLDİ,02.11.2026 16:27:05, ***,,Online,"₺0,00","₺0,00","₺350,00","₺0,00",SEMİH ÖZBOLAT,5 dk,Yemek sepeti,,"4,90 km",
+94,1.5671971556170468e+18,TESLİM EDİLDİ,02.11.2026 14:22:00, ***,,Online,"₺0,00","₺0,00","₺350,00","₺0,00",UTKU BABUÇCU,5 dk,Yemek sepeti,,"17,44 km",
+95,7.183852865489888e+17,TESLİM EDİLDİ,02.11.2026 14:18:27, ***,,Nakit,"₺400,00","₺0,00","₺0,00","₺0,00",BUĞRA  DOĞAN,5 dk,Yemek sepeti,,"11,88 km",
+96,4.1051509599696794e+18,TESLİM EDİLDİ,02.11.2026 12:43:21, ***,,Online,"₺0,00","₺0,00","₺360,00","₺0,00",EREN  ARARAT,5 dk,Yemek sepeti,,"2,96 km",
+97,4.5265773802162419e+17,TESLİM EDİLDİ,02.11.2026 12:33:06, ***,,Online,"₺0,00","₺0,00","₺360,00","₺0,00",EREN  ARARAT,5 dk,Yemek sepeti,,"3,98 km",
+98,2.2031872911749978e+18,TESLİM EDİLDİ,02.11.2026 11:54:34, ***,,Online,"₺0,00","₺0,00","₺600,00","₺0,00",MEHMET ALTUNKAYNAK,5 dk,Yemek sepeti,,"8,10 km",
+99,7.0569187437377267e+17,TESLİM EDİLDİ,01.11.2026 18:04:59, ***,,Online,"₺0,00","₺0,00","₺940,00","₺0,00",EMİRHAN BOZOK,5 dk,Yemek sepeti,,"730,00 m",
+100,5.4948061756582086e+17,TESLİM EDİLDİ,01.11.2026 18:04:59, ***,,Kredi kartı,"₺0,00","₺430,00","₺0,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"1,51 km",
+101,3.3156489258301932e+18,TESLİM EDİLDİ,01.11.2026 17:11:17, ***,,Online,"₺0,00","₺0,00","₺383,16","₺0,00",UTKU BABUÇCU,5 dk,Yemek sepeti,,"2,34 km",
+102,1.0124313099270483e+18,TESLİM EDİLDİ,01.11.2026 16:55:21, ***,,Nakit,"₺606,32","₺0,00","₺0,00","₺0,00",TOPRAK GÖKÇE,5 dk,Yemek sepeti,,"2,02 km",
+103,8.1358126662789683e+17,TESLİM EDİLDİ,01.11.2026 16:05:00, ***,,Online,"₺0,00","₺0,00","₺800,00","₺0,00",HASAN KAYA,5 dk,Kokpit,,"9,26 km",
+104,5.8938919765351168e+17,TESLİM EDİLDİ,01.11.2026 16:00:17, ***,,Online,"₺0,00","₺0,00","₺503,00","₺0,00",HASAN KAYA,5 dk,Kokpit,,"10,67 km",
+105,14623644138869688,İPTAL EDİLDİ,01.11.2026 15:57:00, ***,,Kredi kartı,"₺0,00","₺0,00","₺0,00","₺0,00",MELİH KOLANKAYA,5 dk,Yemek sepeti,,"8,10 km",
+106,2.7268959613746473e+18,TESLİM EDİLDİ,01.11.2026 15:32:16, ***,,Online,"₺0,00","₺0,00","₺303,16","₺0,00",MURAT ARICIOĞLU,5 dk,Yemek sepeti,,"3,47 km",
+107,1.681205701010516e+18,TESLİM EDİLDİ,01.11.2026 14:43:00, ***,,Online,"₺0,00","₺0,00","₺353,16","₺0,00",RECAY YURDAGÜL,5 dk,Yemek sepeti,,"12,15 km",
+108,1.3362860897030611e+17,TESLİM EDİLDİ,01.11.2026 14:34:52, ***,,Kredi kartı,"₺0,00","₺510,00","₺0,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"3,45 km",
+109,1.3273169581122662e+18,TESLİM EDİLDİ,01.11.2026 14:15:00, ***,,Kredi kartı,"₺0,00","₺250,00","₺0,00","₺0,00",BURÇİN KAÇAR,5 dk,Kokpit,,"2,75 km",
+110,1.803563983615061e+18,TESLİM EDİLDİ,01.11.2026 13:51:21, ***,,Online,"₺0,00","₺0,00","₺400,00","₺0,00",MERTCAN KARACAN,5 dk,Yemek sepeti,,"11,95 km",
+111,3.7568075553067411e+17,TESLİM EDİLDİ,01.11.2026 13:30:00, ***,,Nakit,"₺200,00","₺0,00","₺0,00","₺0,00",EVREN SERÇALI,5 dk,Yemek sepeti,,"2,16 km",
+112,4.5318204356232422e+17,TESLİM EDİLDİ,01.11.2026 12:42:18, ***,,Nakit,"₺606,32","₺0,00","₺0,00","₺0,00",MUSTAFA KARAKURT,5 dk,Yemek sepeti,,"5,97 km",
+113,64614607324022336,TESLİM EDİLDİ,31.10.2026 17:05:12, ***,,Nakit,"₺303,16","₺0,00","₺0,00","₺0,00",MUHAMMED YUSUF YILDIRIM,5 dk,Yemek sepeti,,"5,52 km",
+114,2.082441185872584e+17,TESLİM EDİLDİ,31.10.2026 15:36:18, ***,,Online,"₺0,00","₺0,00","₺480,00","₺0,00",MERTCAN KARACAN,5 dk,Yemek sepeti,,"7,48 km",
+115,4.0348824183122949e+18,TESLİM EDİLDİ,31.10.2026 13:22:28, ***,,Kredi kartı,"₺0,00","₺200,00","₺0,00","₺0,00",RECAİ YURDAGÜL,5 dk,Kokpit,,"3,09 km",
+116,2.4176696659985869e+17,TESLİM EDİLDİ,30.10.2026 19:24:51, ***,,Online,"₺0,00","₺0,00","₺280,00","₺0,00",RECAİ YURDAGÜL,5 dk,Yemek sepeti,,"3,41 km",
+117,1.9625803203158288e+17,TESLİM EDİLDİ,30.10.2026 17:14:55, ***,,Kredi kartı,"₺0,00","₺320,00","₺0,00","₺0,00",YİĞİT SARPER DEVAM,5 dk,Kokpit,,"2,62 km",
+118,1.1002411533808718e+17,TESLİM EDİLDİ,30.10.2026 15:36:16, ***,,Online,"₺0,00","₺0,00","₺250,00","₺0,00",EMİRHAN YÜKSEL,5 dk,Yemek sepeti,,"808,00 m",
+119,1.1687827016761984e+18,TESLİM EDİLDİ,30.10.2026 14:04:43, ***,,Online,"₺0,00","₺0,00","₺301,40","₺0,00",AHMET  ALÇI,5 dk,Yemek sepeti,,"3,96 km",
+120,1.2990435920309335e+18,TESLİM EDİLDİ,30.10.2026 13:18:18, ***,,Nakit,"₺301,00","₺0,00","₺0,00","₺0,00",MELİH KOLANKAYA,5 dk,Kokpit,,"1,55 km",
+121,2.294851896211784e+17,TESLİM EDİLDİ,30.10.2026 13:00:31, ***,,Nakit,"₺200,00","₺0,00","₺0,00","₺0,00",AZİZCAN DEMİRAL,5 dk,Kokpit,,"995,00 m",
+122,3.517083051789588e+18,TESLİM EDİLDİ,30.10.2026 11:32:40, ***,,Online,"₺0,00","₺0,00","₺740,00","₺0,00",RECAİ YURDAGÜL,5 dk,Yemek sepeti,,"2,94 km",
+123,3.4457225282918661e+18,TESLİM EDİLDİ,29.10.2026 19:14:29, ***,,Online,"₺0,00","₺0,00","₺233,50","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"579,00 m",
+124,1.5329686893303022e+18,TESLİM EDİLDİ,29.10.2026 18:42:31, ***,,Online,"₺0,00","₺0,00","₺246,50","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"2,52 km",
+125,4.1076390191700154e+17,TESLİM EDİLDİ,29.10.2026 18:14:56, ***,,Kredi kartı,"₺0,00","₺493,00","₺0,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"4,17 km",
+126,67375932382948224,TESLİM EDİLDİ,29.10.2026 17:40:00, ***,,Online,"₺0,00","₺0,00","₺536,98","₺0,00",SEMİH ÖZBOLAT,5 dk,Yemek sepeti,,"6,41 km",
+127,1.8249994862025495e+18,TESLİM EDİLDİ,29.10.2026 17:30:29, ***,,Kredi kartı,"₺0,00","₺268,49","₺0,00","₺0,00",MEHMET ALTUNKAYNAK,5 dk,Yemek sepeti,,"15,32 km",
+128,3.4068098559258368e+17,TESLİM EDİLDİ,29.10.2026 16:41:59, ***,,Online,"₺0,00","₺0,00","₺300,00","₺0,00",AHMET  ALÇI,5 dk,Trendyol yemek,,"567,00 m",
+129,2.9874591823765069e+17,TESLİM EDİLDİ,29.10.2026 16:25:32, ***,,Online,"₺0,00","₺0,00","₺430,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"3,38 km",
+130,8.1199832419493555e+17,TESLİM EDİLDİ,29.10.2026 16:06:16, ***,,Online,"₺0,00","₺0,00","₺300,49","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"3,60 km",
+131,8.03068683396491e+17,TESLİM EDİLDİ,29.10.2026 15:58:34, ***,,Online,"₺0,00","₺0,00","₺646,67","₺0,00",MUSTAFA KARAKURT,5 dk,Yemek sepeti,,"17,51 km",
+132,2.9401653017730166e+18,TESLİM EDİLDİ,29.10.2026 15:51:39, ***,,Online,"₺0,00","₺0,00","₺235,00","₺0,00",SEMİH ÖZBOLAT,5 dk,Yemek sepeti,,"4,00 km",
+133,1.3110109123110249e+18,TESLİM EDİLDİ,29.10.2026 15:44:52, ***,,Kredi kartı,"₺0,00","₺350,00","₺0,00","₺0,00",MUSTAFA KARAKURT,5 dk,Yemek sepeti,,"1,51 km",
+134,1.506571870887081e+18,TESLİM EDİLDİ,29.10.2026 15:31:00, ***,,Kredi kartı,"₺0,00","₺235,00","₺0,00","₺0,00",MEHMET ALTUNKAYNAK,5 dk,Yemek sepeti,,"2,87 km",
+135,2.8174321307070912e+17,TESLİM EDİLDİ,29.10.2026 15:18:11, ***,,Online,"₺0,00","₺0,00","₺1.149,00","₺0,00",MUHAMMED YUSUF YILDIRIM,5 dk,Yemek sepeti,,"5,47 km",
+136,9.9434439976596365e+17,TESLİM EDİLDİ,29.10.2026 14:38:58, ***,,Kredi kartı,"₺0,00","₺501,67","₺0,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"1,60 km",
+137,3.5121157758422518e+18,TESLİM EDİLDİ,29.10.2026 14:31:24, ***,,Nakit,"₺243,37","₺0,00","₺0,00","₺0,00",MEHMET ALİ   ÖĞÜNÇ,5 dk,Yemek sepeti,,"636,00 m",
+138,1.533113389665973e+18,İPTAL EDİLDİ,29.10.2026 13:54:00, ***,,Online,"₺0,00","₺0,00","₺0,00","₺0,00",-,5 dk,Yemek sepeti,,"1,03 km",
+139,3.313888548734614e+18,TESLİM EDİLDİ,29.10.2026 13:33:47, ***,,Online,"₺0,00","₺0,00","₺300,00","₺0,00",MUSTAFA KARAKURT,5 dk,Yemek sepeti,,"1,11 km",
+140,22705038511048224,TESLİM EDİLDİ,29.10.2026 13:20:07, ***,,Online,"₺0,00","₺0,00","₺235,00","₺0,00",MUHAMMED YUSUF YILDIRIM,5 dk,Yemek sepeti,,"5,83 km",
+141,7.6521669208717146e+17,TESLİM EDİLDİ,29.10.2026 12:02:54, ***,,Nakit,"₺205,00","₺0,00","₺0,00","₺0,00",EVREN SERÇALI,5 dk,Yemek sepeti,,"6,07 km",
+142,53280275788344544,TESLİM EDİLDİ,28.10.2026 13:57:01, ***,,Online,"₺0,00","₺0,00","₺320,45","₺0,00",MERTCAN KARACAN,5 dk,Kokpit,,"7,96 km",
+143,2.609385430755138e+18,TESLİM EDİLDİ,28.10.2026 13:24:01, ***,,Online,"₺0,00","₺0,00","₺640,90","₺0,00",MAHMUT ZİYAN,5 dk,Yemek sepeti,,"7,99 km",
+144,9.4346584543149773e+17,TESLİM EDİLDİ,28.10.2026 12:57:56, ***,,Nakit,"₺1.000,00","₺0,00","₺0,00","₺0,00",MAHMUT ZİYAN,5 dk,Yemek sepeti,,"8,01 km",
+145,2.583451979121793e+18,TESLİM EDİLDİ,28.10.2026 12:04:00, ***,,Online,"₺0,00","₺0,00","₺300,00","₺0,00",MAHMUT ZİYAN,5 dk,Yemek sepeti,,"8,10 km",
+146,9.3816793411913114e+17,TESLİM EDİLDİ,28.10.2026 11:58:20, ***,,Online,"₺0,00","₺0,00","₺320,45","₺0,00",MAHMUT ZİYAN,5 dk,Yemek sepeti,,"8,66 km",
+147,2.2738973599880323e+18,TESLİM EDİLDİ,28.10.2026 11:58:20, ***,,Online,"₺0,00","₺0,00","₺320,45","₺0,00",MAHMUT ZİYAN,5 dk,Yemek sepeti,,"8,10 km",
+148,68046221607631528,TESLİM EDİLDİ,27.10.2026 19:34:22, ***,,Online,"₺0,00","₺0,00","₺330,00","₺0,00",EMİRHAN YÜKSEL,5 dk,Trendyol yemek,,"1,14 km",
+149,1.5834471371930022e+18,TESLİM EDİLDİ,27.10.2026 18:14:16, ***,,Online,"₺0,00","₺0,00","₺100,00","₺0,00",UTKU BABUÇCU,5 dk,Kokpit,,"7,08 km",
+150,8.8236831872525952e+17,TESLİM EDİLDİ,27.10.2026 17:02:16, ***,,Kredi kartı,"₺0,00","₺200,00","₺0,00","₺0,00",RECAİ YURDAGÜL,5 dk,Kokpit,,"5,70 km",
+151,1.3808973142623094e+18,TESLİM EDİLDİ,27.10.2026 14:14:12, ***,,Online,"₺0,00","₺0,00","₺540,00","₺0,00",BURÇİN KAÇAR,5 dk,Yemek sepeti,,"8,15 km",
+152,3.2336244048015119e+18,TESLİM EDİLDİ,27.10.2026 12:43:49, ***,,Online,"₺0,00","₺0,00","₺800,00","₺0,00",EREN  ARARAT,5 dk,Trendyol yemek,,"1,24 km",
+153,28594795681070912,TESLİM EDİLDİ,27.10.2026 12:43:34, ***,,Online,"₺0,00","₺0,00","₺260,00","₺0,00",EREN  ARARAT,5 dk,Trendyol yemek,,"687,00 m",
+154,2.1047240626307782e+17,TESLİM EDİLDİ,26.10.2026 18:45:06, ***,,Online,"₺0,00","₺0,00","₺200,00","₺0,00",AHMET  ALÇI,5 dk,Trendyol yemek,,"1,23 km",
+155,4.0053780967531776e+17,TESLİM EDİLDİ,26.10.2026 14:09:53, ***,,Kredi kartı,"₺0,00","₺280,00","₺0,00","₺0,00",BUĞRA  DOĞAN,5 dk,Kokpit,,"2,70 km",
+156,3.017322382038314e+18,TESLİM EDİLEMEDİ,26.10.2026 12:33:46, ***,,Online,"₺0,00","₺0,00","₺0,00","₺0,00",MELİH KOLANKAYA,5 dk,Trendyol yemek,,"2,00 m",

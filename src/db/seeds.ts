@@ -1,4 +1,5 @@
 // Initial Seed Data for Güzelyalı ERP
+import { REAL_CUSTOMERS_SQL, REAL_ORDERS_SQL, REAL_YEMEKSEPETI_ORDERS_SQL } from './realData';
 
 export const SEED_DATA_SQL = `
 -- Default Users
@@ -208,10 +209,4 @@ INSERT OR IGNORE INTO recipe_items (recipe_id, inventory_item_id, quantity, note
 -- Tatlılar
 (15, 15, 1.0, '1 adet Kazandibi'),
 (16, 16, 1.0, '1 adet Puding');
-
--- Initial Customers (Kayıtlı Müşteriler)
-INSERT OR IGNORE INTO customers (id, full_name, phone, address, notes, last_order_notes, total_orders_count, total_spent) VALUES
-(1, 'Ahmet Yılmaz', '0532 123 45 67', 'Güzelyalı Mah. 81021 Sok. Park Apt. No:14 D:3 Çukurova / Adana', 'Bol soslu sever, acı turşu istemiyor', '2x Tavuk Dürüm + 2x Ayran', 5, 1200.0),
-(2, 'Mehmet Kaya', '0533 987 65 43', 'Toros Mah. Barış Manço Bulv. Huzur Sitesi B Blok K:4 D:8 Çukurova / Adana', 'Eti iyi pişmiş olsun, lavaş çıtır', '1x Et Dürüm (Lavaş) + 1x Kutu Kola', 3, 1185.0),
-(3, 'Ayşe Demir', '0544 555 12 34', 'Mahfesığmaz Mah. Turgut Özal Bulv. Güneş Apt. No:22 D:5 Çukurova / Adana', 'Zil çalışmıyor, kapıya gelince lütfen arayın', '1x Pilav Üstü Tavuk + 1x Kazandibi + 1x Ayran', 2, 820.0);
-`;
+` + REAL_CUSTOMERS_SQL + REAL_ORDERS_SQL + REAL_YEMEKSEPETI_ORDERS_SQL;

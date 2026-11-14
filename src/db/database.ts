@@ -4,6 +4,7 @@
 import initSqlJs, { Database as SqlJsDatabase } from 'sql.js';
 import { CREATE_TABLES_SQL } from './schema';
 import { SEED_DATA_SQL } from './seeds';
+import { REAL_CUSTOMERS_SQL, REAL_ORDERS_SQL, REAL_YEMEKSEPETI_ORDERS_SQL } from './realData';
 import {
   Product,
   InventoryItem,
@@ -26,6 +27,13 @@ import { roundMoney } from '../utils/format';
 
 const STORAGE_KEY = 'guzelyali_erp_sqlite_db';
 
+function isValidSqliteHeader(data: Uint8Array): boolean {
+  if (data.length < 16) return false;
+  // SQLite format 3\0 (0x53 0x51 0x4c 0x69 0x74 0x65 0x20 0x66 0x6f 0x72 0x6d 0x61 0x74 0x20 0x33 0x00)
+  const header = String.fromCharCode(...data.slice(0, 15));
+  return header === 'SQLite format 3';
+}
+
 class DatabaseService {
   private db: SqlJsDatabase | null = null;
   private isInitialized = false;
@@ -45,14 +53,19 @@ class DatabaseService {
         // Check if there is an existing database saved in server API, Electron storage, or localStorage
         let savedData: Uint8Array | null = null;
         
-        // 1. Try cloud server synchronization if deployed on web server
-        if (typeof window !== 'undefined' && window.location.protocol.startsWith('http') && !(window as any).electronAPI) {
+        const isLocalhost = typeof window !== 'undefined' && 
+          (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+        // 1. Try cloud server synchronization if deployed on live web server (skip on Vite localhost dev server)
+        if (!isLocalhost && typeof window !== 'undefined' && window.location.protocol.startsWith('http') && !(window as any).electronAPI) {
           try {
             const res = await fetch('./api/sync.php?action=load');
-            if (res.ok) {
+            const contentType = res.headers.get('content-type') || '';
+            if (res.ok && res.status === 200 && !contentType.includes('text/html')) {
               const buffer = await res.arrayBuffer();
-              if (buffer.byteLength > 100) {
-                savedData = new Uint8Array(buffer);
+              const candidate = new Uint8Array(buffer);
+              if (candidate.byteLength > 100 && isValidSqliteHeader(candidate)) {
+                savedData = candidate;
                 console.log('Central cloud database loaded successfully from server.');
               }
             }
@@ -65,24 +78,48 @@ class DatabaseService {
         if (!savedData && typeof window !== 'undefined' && (window as any).electronAPI?.loadDatabase) {
           const buffer = await (window as any).electronAPI.loadDatabase();
           if (buffer) {
-            savedData = new Uint8Array(buffer);
+            const candidate = new Uint8Array(buffer);
+            if (isValidSqliteHeader(candidate)) {
+              savedData = candidate;
+            }
           }
         } else if (!savedData && typeof window !== 'undefined' && window.localStorage) {
-          const savedBase64 = localStorage.getItem(STORAGE_KEY);
-          if (savedBase64) {
-            const binaryString = atob(savedBase64);
-            const bytes = new Uint8Array(binaryString.length);
-            for (let i = 0; i < binaryString.length; i++) {
-              bytes[i] = binaryString.charCodeAt(i);
+          try {
+            const savedBase64 = localStorage.getItem(STORAGE_KEY);
+            if (savedBase64) {
+              const binaryString = atob(savedBase64);
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+              }
+              if (isValidSqliteHeader(bytes)) {
+                savedData = bytes;
+              } else {
+                console.warn('Corrupt or invalid SQLite database in localStorage, clearing.');
+                localStorage.removeItem(STORAGE_KEY);
+              }
             }
-            savedData = bytes;
+          } catch (e) {
+            console.warn('Failed reading localStorage database:', e);
+            localStorage.removeItem(STORAGE_KEY);
           }
         }
 
         if (savedData && savedData.length > 0) {
-          this.db = new SQL.Database(savedData);
-          this.applyMigrations();
-          this.persist();
+          try {
+            this.db = new SQL.Database(savedData);
+            this.applyMigrations();
+            this.persist();
+          } catch (loadErr) {
+            console.warn('Failed to open saved database, falling back to clean seed database:', loadErr);
+            if (typeof window !== 'undefined' && window.localStorage) {
+              localStorage.removeItem(STORAGE_KEY);
+            }
+            this.db = new SQL.Database();
+            this.db.run(CREATE_TABLES_SQL);
+            this.db.run(SEED_DATA_SQL);
+            this.persist();
+          }
         } else {
           this.db = new SQL.Database();
           this.db.run(CREATE_TABLES_SQL);
@@ -100,15 +137,29 @@ class DatabaseService {
     return this.initPromise;
   }
 
-  // Automatic schema migration and menu price alignment
+  // Automatic schema migration, cleanup of demo records, and menu price alignment
   private applyMigrations(): void {
     if (!this.db) return;
     try {
       // 1. Ensure any newly added tables exist
       this.db.run(CREATE_TABLES_SQL);
 
-      // 2. Ensure new seed rows exist (INSERT OR IGNORE)
+      // 2. Remove fake/demo test customers
+      this.db.run(`
+        DELETE FROM customers 
+        WHERE full_name IN ('Ahmet Yılmaz', 'Mehmet Kaya', 'Ayşe Demir', 'Canan Yıldız')
+           OR phone IN ('0532 123 45 67', '0533 987 65 43', '0544 555 12 34', '0555 888 99 00');
+      `);
+
+      // 3. Ensure seed rows exist (INSERT OR IGNORE)
       this.db.run(SEED_DATA_SQL);
+
+      // 4. Ensure real customers are inserted
+      this.db.run(REAL_CUSTOMERS_SQL);
+
+      // 5. Ensure real orders and Yemeksepeti orders are inserted
+      this.db.run(REAL_ORDERS_SQL);
+      this.db.run(REAL_YEMEKSEPETI_ORDERS_SQL);
 
       // 3. Update existing products to match the real physical menu board
       const priceUpdates = [
@@ -170,8 +221,11 @@ class DatabaseService {
         localStorage.setItem(STORAGE_KEY, btoa(binary));
       }
 
-      // Sync with cloud server if running in web browser
-      if (typeof window !== 'undefined' && window.location.protocol.startsWith('http') && !(window as any).electronAPI) {
+      // Sync with cloud server if running in production web browser (skip on localhost)
+      const isLocalhost = typeof window !== 'undefined' && 
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+      if (!isLocalhost && typeof window !== 'undefined' && window.location.protocol.startsWith('http') && !(window as any).electronAPI) {
         fetch('./api/sync.php?action=save', {
           method: 'POST',
           headers: { 'Content-Type': 'application/octet-stream' },

@@ -13,6 +13,8 @@ import {
   Settings,
   HelpCircle,
   Users,
+  Download,
+  Laptop,
 } from 'lucide-react';
 
 export type NavItem =
@@ -33,22 +35,24 @@ interface SidebarProps {
   currentTab: NavItem;
   onSelectTab: (tab: NavItem) => void;
   stockAlertCount: number;
+  onOpenDownloadModal?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   currentTab,
   onSelectTab,
   stockAlertCount,
+  onOpenDownloadModal,
 }) => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, badge: null },
     { id: 'pos', label: 'Satış & Kasa POS', icon: ShoppingCart, badge: 'Canlı' },
-    { id: 'customers', label: 'Müşteri Kayıt & Rehber', icon: Users, badge: null },
+    { id: 'customers', label: 'Müşteri Kayıt & Rehber', icon: Users, badge: '31' },
+    { id: 'yemeksepeti', label: 'Yemeksepeti Satışları', icon: TrendingUp, badge: '153' },
     { id: 'production', label: 'Üretim Mühendisliği', icon: Flame, badge: null },
     { id: 'inventory', label: 'Akıllı Stok', icon: Boxes, badge: stockAlertCount > 0 ? stockAlertCount : null },
     { id: 'recipes', label: 'Reçeteler & Menü', icon: ChefHat, badge: null },
     { id: 'accounting', label: 'Finansal Muhasebe', icon: Wallet, badge: null },
-    { id: 'yemeksepeti', label: 'Yemeksepeti Kârlılık', icon: TrendingUp, badge: null },
     { id: 'menu-engineering', label: 'Menü Mühendisliği', icon: PieChart, badge: null },
     { id: 'breakeven', label: 'Başabaş Analizi', icon: Target, badge: null },
     { id: 'reports', label: 'Raporlama & Dışa Aktar', icon: FileSpreadsheet, badge: null },
@@ -123,6 +127,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
           );
         })}
       </nav>
+
+      {/* Windows App Download Card */}
+      {onOpenDownloadModal && (
+        <div className="px-3 pb-2">
+          <button
+            onClick={onOpenDownloadModal}
+            className="w-full p-2.5 rounded-xl bg-gradient-to-r from-sky-950/60 to-navy-900 border border-sky-800/50 hover:border-sky-500/80 transition-all text-left flex items-center justify-between group shadow-sm active:scale-95"
+          >
+            <div className="flex items-center gap-2.5 truncate">
+              <div className="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                <Download size={14} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs font-bold text-sky-300 group-hover:text-white truncate">
+                  Programı İndir
+                </div>
+                <div className="text-[10px] text-slate-400">Windows .EXE (Offline)</div>
+              </div>
+            </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-semibold group-hover:bg-sky-500 group-hover:text-white transition-colors">
+              v1.0
+            </span>
+          </button>
+        </div>
+      )}
 
       {/* Footer Info */}
       <div className="p-3 border-t border-navy-800/80 bg-navy-950/60">

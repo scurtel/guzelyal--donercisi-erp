@@ -184,7 +184,7 @@ describe('Güzelyalı ERP — Uçtan Uca Kesin Kabul ve Muhasebe Testleri', () =
     // Brüt kâr: 1.260 - 415.56 = 844.44 TL
     // Komisyon gideri: 69 TL
     // Günlük elektrik/kira payı: 200 TL
-    const ordersRes = db.exec('SELECT SUM(total_amount), SUM(cogs_total) FROM orders WHERE status = "completed"')[0];
+    const ordersRes = db.exec("SELECT SUM(total_amount), SUM(cogs_total) FROM orders WHERE order_number IN ('GZY-TEST-01', 'GZY-YS-01')")[0];
     const totalRev = ordersRes.values[0][0];
     const totalCogs = ordersRes.values[0][1];
 
@@ -225,11 +225,23 @@ describe('Güzelyalı ERP — Uçtan Uca Kesin Kabul ve Muhasebe Testleri', () =
     const cashBalance = newDb.exec('SELECT balance FROM cash_registers WHERE id = 1')[0].values[0][0];
 
     expect(productCount).toBe(16); // Güncel tabela menüsündeki 16 ürün (Dönerler, Yan Ürün, İçecekler ve Eker Tatlılar)
-    expect(orderCount).toBe(2);   // 2 sipariş eksiksiz korundu
+    expect(orderCount).toBe(311); // 309 gerçek sipariş (156 platform + 153 Yemeksepeti Partner) + 2 test siparişi
     expect(cashBalance).toBe(800.0); // Kasa bakiyesi korundu
+
+    const ysOrderCount = newDb.exec('SELECT count(*) FROM yemeksepeti_orders')[0].values[0][0];
+    expect(ysOrderCount).toBe(153); // 153 Yemeksepeti siparişi eksiksiz kayıtlı
   });
 
   it('11. Müşteri kaydı, isim/telefon ile arama ve sipariş ilişkilendirmesini test et', () => {
+    // 0. Sahte/demo müşterilerin silindiğini ve gerçek müşterilerin veritabanında olduğunu doğrula
+    const fakeCustomers = db.exec(
+      "SELECT count(*) FROM customers WHERE full_name IN ('Ahmet Yılmaz', 'Mehmet Kaya', 'Ayşe Demir')"
+    )[0].values[0][0];
+    expect(fakeCustomers).toBe(0);
+
+    const realCustomersCount = db.exec("SELECT count(*) FROM customers")[0].values[0][0];
+    expect(realCustomersCount).toBeGreaterThanOrEqual(31);
+
     // 1. Yeni müşteri kaydı
     db.run(
       `INSERT INTO customers (full_name, phone, address, notes, last_order_notes, total_orders_count, total_spent)

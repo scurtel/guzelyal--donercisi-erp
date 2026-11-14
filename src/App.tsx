@@ -3,6 +3,8 @@ import { Sidebar, NavItem } from './components/Sidebar';
 import { Header } from './components/Header';
 import { ThermalReceiptModal } from './components/ThermalReceiptModal';
 import { PinLoginModal } from './components/PinLoginModal';
+import { LoginScreen } from './components/LoginScreen';
+import { DownloadModal } from './components/DownloadModal';
 
 // Modules
 import { DashboardModule } from './modules/DashboardModule';
@@ -25,23 +27,33 @@ export const App: React.FC = () => {
   const [isDbReady, setIsDbReady] = useState(false);
   const [initError, setInitError] = useState<string | null>(null);
 
-  // App Navigation & Session
+  // Authentication & Security Lock State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return sessionStorage.getItem('gzy_auth') === 'true';
+  });
+  const [currentUser, setCurrentUser] = useState<User>(() => {
+    const saved = sessionStorage.getItem('gzy_user');
+    return saved
+      ? JSON.parse(saved)
+      : {
+          id: 1,
+          username: 'admin',
+          display_name: 'Yönetici (Admin)',
+          role: 'admin',
+          pin_code: '1234',
+        };
+  });
+
+  // App Navigation & Modals
   const [currentTab, setCurrentTab] = useState<NavItem>('dashboard');
   const [selectedCustomerForPos, setSelectedCustomerForPos] = useState<Customer | null>(null);
-  const [currentUser, setCurrentUser] = useState<User>({
-    id: 1,
-    username: 'admin',
-    display_name: 'Yönetici (Admin)',
-    role: 'admin',
-    pin_code: '1234',
-  });
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [isPinModalOpen, setIsPinModalOpen] = useState(false);
+  const [printOrder, setPrintOrder] = useState<Order | null>(null);
 
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     return localStorage.getItem('gzy_theme') === 'dark';
   });
-
-  const [isPinModalOpen, setIsPinModalOpen] = useState(false);
-  const [printOrder, setPrintOrder] = useState<Order | null>(null);
 
   // Core Data States
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
@@ -49,6 +61,20 @@ export const App: React.FC = () => {
   const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
   const [suppliers, setSuppliers] = useState<Account[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Handle Login and Logout
+  const handleLoginSuccess = (user: User) => {
+    setCurrentUser(user);
+    setIsAuthenticated(true);
+    sessionStorage.setItem('gzy_auth', 'true');
+    sessionStorage.setItem('gzy_user', JSON.stringify(user));
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('gzy_auth');
+    sessionStorage.removeItem('gzy_user');
+  };
 
   // Sync dark mode class
   useEffect(() => {
@@ -123,6 +149,11 @@ export const App: React.FC = () => {
     );
   }
 
+  // Security: If not authenticated, require password/PIN login
+  if (!isAuthenticated) {
+    return <LoginScreen onLoginSuccess={handleLoginSuccess} />;
+  }
+
   const stockAlertCount = inventoryItems.filter(
     (it) => it.current_quantity <= it.minimum_quantity
   ).length;
@@ -134,6 +165,7 @@ export const App: React.FC = () => {
         currentTab={currentTab}
         onSelectTab={setCurrentTab}
         stockAlertCount={stockAlertCount}
+        onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
       />
 
       {/* 2. MAIN CONTENT AREA */}
@@ -143,6 +175,9 @@ export const App: React.FC = () => {
           currentUser={currentUser}
           onOpenPinModal={() => setIsPinModalOpen(true)}
           onQuickPos={() => setCurrentTab('pos')}
+          onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
+          onGoToYemeksepeti={() => setCurrentTab('yemeksepeti')}
+          onLogout={handleLogout}
           cashBalance={metrics.cashBalance}
           todayRevenue={metrics.todayRevenue}
           darkMode={darkMode}
@@ -184,6 +219,10 @@ export const App: React.FC = () => {
               />
             )}
 
+            {currentTab === 'yemeksepeti' && (
+              <YemeksepetiModule onDataChanged={refreshData} />
+            )}
+
             {currentTab === 'production' && (
               <ProductionModule
                 inventoryItems={inventoryItems}
@@ -215,10 +254,6 @@ export const App: React.FC = () => {
               />
             )}
 
-            {currentTab === 'yemeksepeti' && (
-              <YemeksepetiModule onDataChanged={refreshData} />
-            )}
-
             {currentTab === 'menu-engineering' && <MenuEngineeringModule />}
 
             {currentTab === 'breakeven' && <BreakEvenModule />}
@@ -245,8 +280,15 @@ export const App: React.FC = () => {
         currentUser={currentUser}
         onSelectUser={(u) => {
           setCurrentUser(u);
+          sessionStorage.setItem('gzy_user', JSON.stringify(u));
           setIsPinModalOpen(false);
         }}
+      />
+
+      {/* 5. DOWNLOAD DESKTOP APP MODAL */}
+      <DownloadModal
+        isOpen={isDownloadModalOpen}
+        onClose={() => setIsDownloadModalOpen(false)}
       />
     </div>
   );
