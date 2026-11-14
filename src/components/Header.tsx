@@ -63,6 +63,8 @@ export const Header: React.FC<HeaderProps> = ({
           />
           <input
             type="text"
+            id="global_search"
+            name="global_search"
             placeholder="Ürün, sipariş, reçete veya stok ara..."
             onChange={(e) => onSearch(e.target.value)}
             className="w-full pl-9 pr-3 py-1.5 bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-navy-800 rounded-lg text-xs focus:outline-hidden focus:ring-2 focus:ring-brand-500 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-navy-400"
