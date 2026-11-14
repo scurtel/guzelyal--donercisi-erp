@@ -26,8 +26,7 @@ if ($action === 'load') {
         readfile($dbFile);
         exit;
     } else {
-        http_response_code(404);
-        echo json_encode(['error' => 'No database file found on server yet']);
+        http_response_code(204);
         exit;
     }
 }
