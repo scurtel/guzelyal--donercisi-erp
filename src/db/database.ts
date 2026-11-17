@@ -161,27 +161,28 @@ class DatabaseService {
       this.db.run(REAL_ORDERS_SQL);
       this.db.run(REAL_YEMEKSEPETI_ORDERS_SQL);
 
-      // 6. Ensure Administrators exist: Yigit Cilli, Danyal Cilli, Doruk Cilli (Initial Password: 123456)
+      // 6. Ensure Administrators and Staff exist (Default Password/PIN: 60060)
       this.db.run(`
         INSERT OR IGNORE INTO users (id, username, password_hash, display_name, role, pin_code) VALUES
-        (1, 'yigitcilli', '123456', 'Yigit Cilli', 'admin', '123456'),
-        (2, 'danyalcilli', '123456', 'Danyal Cilli', 'admin', '123456'),
-        (3, 'dorukcilli', '123456', 'Doruk Cilli', 'admin', '123456'),
-        (4, 'kasiyer', 'kasiyer123', 'Kasa Personeli', 'kasiyer', '0000'),
-        (5, 'usta', 'usta123', 'Döner Ustası', 'usta', '1111');
+        (1, 'yigitcilli', '60060', 'Yigit Cilli', 'admin', '60060'),
+        (2, 'danyalcilli', '60060', 'Danyal Cilli', 'admin', '60060'),
+        (3, 'dorukcilli', '60060', 'Doruk Cilli', 'admin', '60060'),
+        (4, 'kasiyer', '60060', 'Kasa Personeli', 'kasiyer', '60060'),
+        (5, 'usta', '60060', 'Döner Ustası', 'usta', '60060');
       `);
       // Update existing rows if they had previous names
       this.db.run(`
         UPDATE users SET display_name = 'Yigit Cilli', username = 'yigitcilli' WHERE id = 1 AND (username = 'admin' OR display_name = 'Yönetici (Admin)');
       `);
       this.db.run(`
-        UPDATE users SET pin_code = '123456', password_hash = '123456' WHERE id = 1 AND pin_code = '1234';
-      `);
-      this.db.run(`
         UPDATE users SET display_name = 'Danyal Cilli', username = 'danyalcilli', role = 'admin' WHERE id = 2 AND username != 'danyalcilli';
       `);
       this.db.run(`
         UPDATE users SET display_name = 'Doruk Cilli', username = 'dorukcilli', role = 'admin' WHERE id = 3 AND username != 'dorukcilli';
+      `);
+      // User requested: "birde şifrelerin hepsi 60060 olsun"
+      this.db.run(`
+        UPDATE users SET pin_code = '60060', password_hash = '60060';
       `);
 
       // 3. Update existing products to match the real physical menu board
@@ -356,11 +357,11 @@ class DatabaseService {
   // --- USERS & CREDENTIALS ---
   getUsers(): User[] {
     const fallbackUsers: User[] = [
-      { id: 1, username: 'yigitcilli', display_name: 'Yigit Cilli', role: 'admin', pin_code: '123456' },
-      { id: 2, username: 'danyalcilli', display_name: 'Danyal Cilli', role: 'admin', pin_code: '123456' },
-      { id: 3, username: 'dorukcilli', display_name: 'Doruk Cilli', role: 'admin', pin_code: '123456' },
-      { id: 4, username: 'kasiyer', display_name: 'Kasa Personeli', role: 'kasiyer', pin_code: '0000' },
-      { id: 5, username: 'usta', display_name: 'Döner Ustası', role: 'usta', pin_code: '1111' },
+      { id: 1, username: 'yigitcilli', display_name: 'Yigit Cilli', role: 'admin', pin_code: '60060' },
+      { id: 2, username: 'danyalcilli', display_name: 'Danyal Cilli', role: 'admin', pin_code: '60060' },
+      { id: 3, username: 'dorukcilli', display_name: 'Doruk Cilli', role: 'admin', pin_code: '60060' },
+      { id: 4, username: 'kasiyer', display_name: 'Kasa Personeli', role: 'kasiyer', pin_code: '60060' },
+      { id: 5, username: 'usta', display_name: 'Döner Ustası', role: 'usta', pin_code: '60060' },
     ];
     if (!this.db) return fallbackUsers;
     try {

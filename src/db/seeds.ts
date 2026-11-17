@@ -2,13 +2,13 @@
 import { REAL_CUSTOMERS_SQL, REAL_ORDERS_SQL, REAL_YEMEKSEPETI_ORDERS_SQL } from './realData';
 
 export const SEED_DATA_SQL = `
--- Default Users (Yöneticiler: Yigit Cilli, Danyal Cilli, Doruk Cilli - Şifre: 123456)
+-- Default Users (Yöneticiler: Yigit Cilli, Danyal Cilli, Doruk Cilli, Personel - Şifre: 60060)
 INSERT OR IGNORE INTO users (id, username, password_hash, display_name, role, pin_code) VALUES
-(1, 'yigitcilli', '123456', 'Yigit Cilli', 'admin', '123456'),
-(2, 'danyalcilli', '123456', 'Danyal Cilli', 'admin', '123456'),
-(3, 'dorukcilli', '123456', 'Doruk Cilli', 'admin', '123456'),
-(4, 'kasiyer', 'kasiyer123', 'Kasa Personeli', 'kasiyer', '0000'),
-(5, 'usta', 'usta123', 'Döner Ustası', 'usta', '1111');
+(1, 'yigitcilli', '60060', 'Yigit Cilli', 'admin', '60060'),
+(2, 'danyalcilli', '60060', 'Danyal Cilli', 'admin', '60060'),
+(3, 'dorukcilli', '60060', 'Doruk Cilli', 'admin', '60060'),
+(4, 'kasiyer', '60060', 'Kasa Personeli', 'kasiyer', '60060'),
+(5, 'usta', '60060', 'Döner Ustası', 'usta', '60060');
 
 -- Default Settings
 INSERT OR IGNORE INTO settings (key, value, description) VALUES

@@ -44,7 +44,7 @@ export const App: React.FC = () => {
       username: 'yigitcilli',
       display_name: 'Yigit Cilli',
       role: 'admin',
-      pin_code: '123456',
+      pin_code: '60060',
     };
   });
 

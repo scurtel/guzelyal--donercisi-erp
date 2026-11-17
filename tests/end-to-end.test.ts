@@ -335,25 +335,25 @@ describe('Güzelyalı ERP — Uçtan Uca Kesin Kabul ve Muhasebe Testleri', () =
     expect(checkDeleted).toBe(0);
   });
 
-  it('13. Yöneticiler (Yigit Cilli, Danyal Cilli, Doruk Cilli), 123456 şifresi ve şifre değiştirme fonksiyonunu test et', () => {
-    // 1. Üç yöneticinin veritabanında kayıtlı olduğunu ve varsayılan 123456 şifresine sahip olduğunu doğrula
+  it('13. Yöneticiler (Yigit Cilli, Danyal Cilli, Doruk Cilli), 60060 şifresi ve şifre değiştirme fonksiyonunu test et', () => {
+    // 1. Üç yöneticinin veritabanında kayıtlı olduğunu ve varsayılan 60060 şifresine sahip olduğunu doğrula
     const yigit = db.exec('SELECT id, username, display_name, role, pin_code FROM users WHERE username = "yigitcilli"')[0];
     expect(yigit.values.length).toBe(1);
     expect(yigit.values[0][2]).toBe('Yigit Cilli');
     expect(yigit.values[0][3]).toBe('admin');
-    expect(yigit.values[0][4]).toBe('123456');
+    expect(yigit.values[0][4]).toBe('60060');
 
     const danyal = db.exec('SELECT id, username, display_name, role, pin_code FROM users WHERE username = "danyalcilli"')[0];
     expect(danyal.values.length).toBe(1);
     expect(danyal.values[0][2]).toBe('Danyal Cilli');
     expect(danyal.values[0][3]).toBe('admin');
-    expect(danyal.values[0][4]).toBe('123456');
+    expect(danyal.values[0][4]).toBe('60060');
 
     const doruk = db.exec('SELECT id, username, display_name, role, pin_code FROM users WHERE username = "dorukcilli"')[0];
     expect(doruk.values.length).toBe(1);
     expect(doruk.values[0][2]).toBe('Doruk Cilli');
     expect(doruk.values[0][3]).toBe('admin');
-    expect(doruk.values[0][4]).toBe('123456');
+    expect(doruk.values[0][4]).toBe('60060');
 
     // 2. Kişinin kendi şifresini değiştirmesi testi (Örn: Doruk Cilli şifresini 889900 yapıyor)
     const dorukId = doruk.values[0][0];
@@ -366,8 +366,8 @@ describe('Güzelyalı ERP — Uçtan Uca Kesin Kabul ve Muhasebe Testleri', () =
     expect(updatedDoruk.values[0][0]).toBe('889900');
     expect(updatedDoruk.values[0][1]).toBe('889900');
 
-    // Eski şifre (123456) ile eşleşmeme, yeni şifre (889900) ile eşleşme testi
-    const checkOld = db.exec('SELECT count(*) FROM users WHERE id = ? AND pin_code = "123456"', [dorukId])[0].values[0][0];
+    // Eski şifre (60060) ile eşleşmeme, yeni şifre (889900) ile eşleşme testi
+    const checkOld = db.exec('SELECT count(*) FROM users WHERE id = ? AND pin_code = "60060"', [dorukId])[0].values[0][0];
     expect(checkOld).toBe(0);
 
     const checkNew = db.exec('SELECT count(*) FROM users WHERE id = ? AND pin_code = "889900"', [dorukId])[0].values[0][0];

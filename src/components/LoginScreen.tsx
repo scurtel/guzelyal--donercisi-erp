@@ -26,7 +26,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
     username: 'yigitcilli',
     display_name: 'Yigit Cilli',
     role: 'admin',
-    pin_code: '123456',
+    pin_code: '60060',
   });
 
   const [pin, setPin] = useState<string>('');
@@ -113,7 +113,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
     const valid =
       passwordInput === freshUser.pin_code ||
       passwordInput === (freshUser as any).password_hash ||
-      (freshUser.role === 'admin' && (passwordInput === '123456' || passwordInput === 'admin123'));
+      (freshUser.role === 'admin' && (passwordInput === '60060' || passwordInput === '123456' || passwordInput === 'admin123'));
 
     if (valid) {
       onLoginSuccess(freshUser);
