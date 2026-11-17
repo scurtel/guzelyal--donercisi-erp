@@ -335,8 +335,8 @@ describe('Güzelyalı ERP — Uçtan Uca Kesin Kabul ve Muhasebe Testleri', () =
     expect(checkDeleted).toBe(0);
   });
 
-  it('13. Yöneticiler (Yigit Cilli, Danyal Cilli, Doruk Cilli), 60060 şifresi ve şifre değiştirme fonksiyonunu test et', () => {
-    // 1. Üç yöneticinin veritabanında kayıtlı olduğunu ve varsayılan 60060 şifresine sahip olduğunu doğrula
+  it('13. Yöneticiler (Yigit Cilli, Danyal Cilli, Doruk Cilli, Filiz Yarız), 60060 şifresi ve şifre değiştirme fonksiyonunu test et', () => {
+    // 1. Dört yöneticinin veritabanında kayıtlı olduğunu ve varsayılan 60060 şifresine sahip olduğunu doğrula
     const yigit = db.exec('SELECT id, username, display_name, role, pin_code FROM users WHERE username = "yigitcilli"')[0];
     expect(yigit.values.length).toBe(1);
     expect(yigit.values[0][2]).toBe('Yigit Cilli');
@@ -354,6 +354,12 @@ describe('Güzelyalı ERP — Uçtan Uca Kesin Kabul ve Muhasebe Testleri', () =
     expect(doruk.values[0][2]).toBe('Doruk Cilli');
     expect(doruk.values[0][3]).toBe('admin');
     expect(doruk.values[0][4]).toBe('60060');
+
+    const filiz = db.exec('SELECT id, username, display_name, role, pin_code FROM users WHERE username = "filizyariz"')[0];
+    expect(filiz.values.length).toBe(1);
+    expect(filiz.values[0][2]).toBe('Filiz Yarız');
+    expect(filiz.values[0][3]).toBe('admin');
+    expect(filiz.values[0][4]).toBe('60060');
 
     // 2. Kişinin kendi şifresini değiştirmesi testi (Örn: Doruk Cilli şifresini 889900 yapıyor)
     const dorukId = doruk.values[0][0];

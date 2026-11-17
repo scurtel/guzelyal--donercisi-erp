@@ -168,7 +168,7 @@ class DatabaseService {
         (2, 'danyalcilli', '60060', 'Danyal Cilli', 'admin', '60060'),
         (3, 'dorukcilli', '60060', 'Doruk Cilli', 'admin', '60060'),
         (4, 'kasiyer', '60060', 'Kasa Personeli', 'kasiyer', '60060'),
-        (5, 'usta', '60060', 'Döner Ustası', 'usta', '60060');
+        (5, 'filizyariz', '60060', 'Filiz Yarız', 'admin', '60060');
       `);
       // Update existing rows if they had previous names
       this.db.run(`
@@ -179,6 +179,9 @@ class DatabaseService {
       `);
       this.db.run(`
         UPDATE users SET display_name = 'Doruk Cilli', username = 'dorukcilli', role = 'admin' WHERE id = 3 AND username != 'dorukcilli';
+      `);
+      this.db.run(`
+        UPDATE users SET display_name = 'Filiz Yarız', username = 'filizyariz', role = 'admin' WHERE id = 5;
       `);
       // User requested: "birde şifrelerin hepsi 60060 olsun"
       this.db.run(`
@@ -361,7 +364,7 @@ class DatabaseService {
       { id: 2, username: 'danyalcilli', display_name: 'Danyal Cilli', role: 'admin', pin_code: '60060' },
       { id: 3, username: 'dorukcilli', display_name: 'Doruk Cilli', role: 'admin', pin_code: '60060' },
       { id: 4, username: 'kasiyer', display_name: 'Kasa Personeli', role: 'kasiyer', pin_code: '60060' },
-      { id: 5, username: 'usta', display_name: 'Döner Ustası', role: 'usta', pin_code: '60060' },
+      { id: 5, username: 'filizyariz', display_name: 'Filiz Yarız', role: 'admin', pin_code: '60060' },
     ];
     if (!this.db) return fallbackUsers;
     try {
